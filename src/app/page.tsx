@@ -54,7 +54,7 @@ export default function Home() {
       </section>
 
 
-      <section>
+      <section className="mt-10rem">
         <ZenVue />
       </section>
       <section>

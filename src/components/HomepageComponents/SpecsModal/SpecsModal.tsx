@@ -1,9 +1,7 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { X } from 'lucide-react';
 import React, { useEffect } from 'react';
-
 
 interface SpecsModalProps {
   isOpen: boolean;
@@ -33,7 +31,7 @@ export const SpecsModal: React.FC<SpecsModalProps> = ({ isOpen, onClose }) => {
           exit={{ opacity: 0 }}
         >
           <motion.div
-            className="bg-none border-gray-700/50 border-3 p text-white rounded-2xl w-full  max-w-3xl h-[90vh] relative overflow-hidden"
+            className="bg-none border-gray-700/50 border-3 text-white rounded-2xl w-full max-w-3xl h-[90vh] relative overflow-hidden"
             initial={{ scale: 0.95, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.95, opacity: 0 }}
@@ -45,13 +43,12 @@ export const SpecsModal: React.FC<SpecsModalProps> = ({ isOpen, onClose }) => {
               className="absolute top-6 right-6 p-2 rounded-full hover:bg-white/10 transition z-10"
               aria-label="Close"
             >
-              {/* <X size={24} /> */}
               <img src="/images/svgs/closeIcon.svg" alt="" />
             </button>
 
             {/* Scrollable Content */}
             <div
-              className="overflow-y-auto h-full px-[6rem] py-12  bg-none"
+              className="overflow-y-auto h-full px-4 md:px-[6rem] py-8 md:py-12 bg-none"
               style={{
                 scrollbarWidth: 'none', // Firefox
                 msOverflowStyle: 'none', // IE 10+
@@ -63,12 +60,12 @@ export const SpecsModal: React.FC<SpecsModalProps> = ({ isOpen, onClose }) => {
                 }
               `}</style>
 
-              <h2 className="text-[37px] font-semibold mt-12  mb-17">
+              <h2 className="text-[22px] md:text-[37px] font-semibold mt-4 mb-8 md:mt-12 md:mb-17 text-center md:text-left">
                 Detailed Specifications
               </h2>
 
               <div className="space-y-6">
-                <SpecRow  label="Resolution" value="4K, WDR + Full HD" />
+                <SpecRow label="Resolution" value="4K, WDR + Full HD" />
                 <SpecRow label="Power supply" value="5V, 2A Cigarette Charger or Hardwire Kit" />
                 <SpecRow label="G sensor" value="Yes" />
                 <SpecRow label="Storage" value="Micro SD card (Up to 512GB)" />
@@ -99,8 +96,8 @@ export const SpecsModal: React.FC<SpecsModalProps> = ({ isOpen, onClose }) => {
 };
 
 const SpecRow = ({ label, value }: { label: string; value: string }) => (
-  <div className="flex justify-between items-start gap-6">
-    <span className="text-[#ABABAB] text-sm w-1/2">{label}</span>
-    <span className=" text-[#E2E2E2] text-md text-right w-1/2">{value}</span>
+  <div className="flex justify-between items-start gap-3 md:gap-6 text-[13px] md:text-sm">
+    <span className="text-[#ABABAB] w-1/2">{label}</span>
+    <span className="text-[#E2E2E2] text-right w-1/2">{value}</span>
   </div>
 );
