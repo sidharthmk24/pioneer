@@ -1,0 +1,26 @@
+Element,Font Size,Leading,Tracking
+Hero Section Heading,51.6px,61.9,0%
+Hero Body,21.3px,Auto,0%
+Section Heading,27.3px,Auto,0%
+Section Body,21.3px,Auto,0%
+Grid View Headings,19.7px,Auto,0%
+Grid View Body (Not Hovered),10.6px,Auto,0%
+Grid View Body (Hovered),9.1px,Auto,0%
+Card Heading,32.7px,39.2,0.29px
+Card Body,12.9px,15.5,0%
+Comparison Grid Side-Heading,15.6px,18.7,0%
+Comparison Grid Body,15.2px,Auto,0%
+Slider Heading,12.9px,15.5,0%
+Slider Subtext,10.6px,Auto,0%
+Footer Navigation,10.6px,Auto,0%
+Footer Micro Text,9.1px,Auto,0%
+Button,27.3px,Auto,0%
+Spacing between Heading & Body,-,0.8em,-
+Spacing between Body & Button,-,3.2em,-
+Spacing between Section Heading & Section Body,-,1.2em,-
+Spacing between Section Body & Next Element,-,1.2em,-
+Spacing between Grid Heading & Grid Body,-,0.6em,-
+Spacing between Card Heading & Body,-,0.6em,-
+Spacing between Slider Heading & Body,-,0.6em,-
+Spacing between Slider Heading & Subtext,-,0.6em,-
+Spacing between Nav & Micro Text,-,0.6em,-

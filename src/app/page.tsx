@@ -1,6 +1,7 @@
 "use client";
 
 import Footer from "@/components/Common/Footer/Footer";
+import AnimateDiv from "@/components/HomepageComponents/AnimateDiv/AnimateDiv";
 import BuiltInGps from "@/components/HomepageComponents/BuiltInGps/BuiltInGps";
 import DriveSmarter from "@/components/HomepageComponents/DriveSmarter/DriveSmarter";
 import DriveAlert from "@/components/HomepageComponents/DrivingAlert/DriveAlert";
@@ -28,7 +29,9 @@ export default function Home() {
       <section>
         <HdrRecording />
       </section>
-
+<section>
+  <AnimateDiv/>
+</section>
       <section>
         <DriveAlert />
       </section>
