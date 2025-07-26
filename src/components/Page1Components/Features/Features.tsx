@@ -102,7 +102,7 @@ export default function Features() {
       alt="Overlay"
       width={50}
       height={120}
-      className="absolute top-53 right-17 z-10 opacity-90"
+      className="absolute top-57 right-19 z-10 opacity-90"
     />
   )}
 </div>
@@ -131,7 +131,7 @@ export default function Features() {
         width={500}
         height={800}
         className={`w-full max-w-xs sm:max-w-sm md:max-w-lg lg:max-w-[550px] xl:max-w-lg object-cover ${
-          features[activeIndex]?.id === 3 ? "rounded-xl shadow-2xl ms-41" : "ms-12"
+          features[activeIndex]?.id === 3 ? "rounded-xl shadow-2xl ms-41 relative left-11" : "ms-12"
         }`}
       />
 
@@ -140,9 +140,9 @@ export default function Features() {
         <Image
           src="/images/svgs/dangerIcon.svg" // replace with your actual overlay path
           alt="Overlay"
-          width={100}
+          width={60}
           height={100}
-          className="absolute top-70 right-20 z-10 opacity-90"
+          className="absolute top-75 right-14 z-10 opacity-90"
         />
       )}
     </motion.div>
