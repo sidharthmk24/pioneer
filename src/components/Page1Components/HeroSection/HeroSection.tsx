@@ -1,16 +1,21 @@
 import { ChevronDown } from "lucide-react";
 
-export default function HeroSection() {
+
+type HeroSectionProps={
+
+  heading: string;
+  subheading?: string;
+}
+
+export default function HeroSection({heading,subheading}:HeroSectionProps) {
   return (
     <div className="min-h-screen flex items-center justify-center bg-black text-center px-4">
       <div className="text-center max-w-screen mx-auto">
         <h1 className="text-[40px] md:text-[90px] font-medium mb-4 text-white lg:py-2">
-          When Detail Matters the Most
+          {heading}
         </h1>
         <p className="text-[17px] md:text-[30px] text-[#ABABAB] mb-6">
-          VREC-H520DC captures sharp 2K video, even in
-          <br className="hidden md:block" />
-          low light and on the move.
+         {subheading}
         </p>
 
         {/* Centered Button */}

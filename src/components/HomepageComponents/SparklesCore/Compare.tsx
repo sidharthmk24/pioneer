@@ -5,34 +5,48 @@ import { cn } from "@/lib/utlis"
 import { IconDotsVertical } from "@tabler/icons-react"
 import { SparklesCore } from "./SparklesCore"
 
-const tabs = [
-  {
-    title: "Drive late?",
-    image1: "/images/GLOW_BEFORE.webp",
-    image2: "/images/GLOW_AFTER.webp",
-    headline: "Clarity That Keeps Up With Your Commute",
-    subtext:
-      "From sharp sunlight to shadowy underpasses, the Sony STARVIS sensor adapts in real time—handling glare, contrast, and light shifts with ease for clear, consistent footage in every driving condition.",
-  },
-  {
-    title: "On the road daily?",
-    image1: "/images/NOISE_BEFORE.webp",
-    image2: "/images/NOISE_AFTER.webp",
-    headline: "See What Others Miss on the Road",
-    subtext:
-      "With advanced night vision and noise reduction, STARVIS ensures daily drivers capture crucial details in every lighting situation.",
-  },
-  {
-    title: "Car left unattended?",
-    image1: "/images/CarBroken.png",
-    image2: "/images/CarBroken.png",
-    headline: "Protection Even When You're Away",
-    subtext:
-      "Capture reliable footage even when parked, ensuring your vehicle is monitored day and night with unparalleled clarity.",
-  },
-]
 
-export const Compare = () => {
+
+// const tabs = [
+//   {
+//     title: "Drive late?",
+//     image1: "/images/GLOW_BEFORE.webp",
+//     image2: "/images/GLOW_AFTER.webp",
+//     headline: "Clarity That Keeps Up With Your Commute",
+//     subtext:
+//       "From sharp sunlight to shadowy underpasses, the Sony STARVIS sensor adapts in real time—handling glare, contrast, and light shifts with ease for clear, consistent footage in every driving condition.",
+//   },
+//   {
+//     title: "On the road daily?",
+//     image1: "/images/NOISE_BEFORE.webp",
+//     image2: "/images/NOISE_AFTER.webp",
+//     headline: "See What Others Miss on the Road",
+//     subtext:
+//       "With advanced night vision and noise reduction, STARVIS ensures daily drivers capture crucial details in every lighting situation.",
+//   },
+//   {
+//     title: "Car left unattended?",
+//     image1: "/images/CarBroken.png",
+//     image2: "/images/CarBroken.png",
+//     headline: "Protection Even When You're Away",
+//     subtext:
+//       "Capture reliable footage even when parked, ensuring your vehicle is monitored day and night with unparalleled clarity.",
+//   },
+// ]
+
+
+type tabDataProps={
+  heading:string
+  subheading:string
+  compareHeading:string
+  compareSubheading:string
+  tabtitle:string
+  image1?:string
+  image2?:string
+}
+
+export const Compare = ({tabs}:{tabs:tabDataProps[]}) => {
+
   const [sliderXPercent, setSliderXPercent] = useState(50)
   const [isDragging, setIsDragging] = useState(false)
   const [activeTab, setActiveTab] = useState(0)
@@ -140,8 +154,8 @@ export const Compare = () => {
 
         {/* Headline/Subtext over image for desktop only */}
         <div className="hidden md:block absolute bottom-8 left-1/2 transform -translate-x-1/2 text-center z-50 px-4 max-w-[90%]">
-          <h3 className="text-white text-2xl font-semibold">{currentTab.headline}</h3>
-          <p className="text-white text-base mt-2">{currentTab.subtext}</p>
+          <h3 className="text-white text-2xl font-semibold">{currentTab.compareHeading}</h3>
+          <p className="text-white text-base mt-2">{currentTab.compareSubheading}</p>
         </div>
       </div>
     ) : (
@@ -153,8 +167,8 @@ export const Compare = () => {
           draggable={false}
         />
         <div className="hidden md:block absolute bottom-8 left-1/2 transform -translate-x-1/2 text-center z-20 px-4 max-w-[90%]">
-          <h3 className="text-white text-2xl font-semibold">{currentTab.headline}</h3>
-          <p className="text-white text-base mt-2">{currentTab.subtext}</p>
+          <h3 className="text-white text-2xl font-semibold">{currentTab.compareHeading}</h3>
+          <p className="text-white text-base mt-2">{currentTab.compareSubheading}</p>
         </div>
       </div>
     )}
@@ -191,7 +205,7 @@ export const Compare = () => {
             : "text-gray-400 hover:text-gray-600/40"
         )}
       >
-        <h4 className="whitespace-nowrap">{tab.title}</h4>
+        <h4 className="whitespace-nowrap">{tab.tabtitle}</h4>
       </button>
     ))}
   </div>
@@ -201,8 +215,8 @@ export const Compare = () => {
   </div>
         {/* Mobile-only subtext below tabs */}
   <div className="block md:hidden text-center mt-6 px-4 max-w-sm">
-    <h3 className="text-white text-base font-semibold">{currentTab.headline}</h3>
-    <p className="text-gray-300 text-xs mt-2">{currentTab.subtext}</p>
+    <h3 className="text-white text-base font-semibold">{currentTab.compareHeading}</h3>
+    <p className="text-gray-300 text-xs mt-2">{currentTab.compareSubheading}</p>
   </div>
 </section>
 

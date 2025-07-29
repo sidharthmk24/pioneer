@@ -1,10 +1,8 @@
 
-import DriveSmarter from '@/components/HomepageComponents/DriveSmarter/DriveSmarter'
 import DriveAlert from '@/components/HomepageComponents/DrivingAlert/DriveAlert'
 import EverythingNeedToKnow from '@/components/HomepageComponents/EverythingNeedToKnow/EverythingNeedToKnow'
 import ProductFeatureTable from '@/components/HomepageComponents/ProductFeatureTable/ProductFeatureTable'
 import { Compare } from '@/components/HomepageComponents/SparklesCore/Compare'
-import WhatCamerMiss from '@/components/HomepageComponents/WhatCameraMiss/WhatCameraMiss'
 import ZenVue from '@/components/HomepageComponents/ZenVue/ZenVue'
 import DriveAlert1 from '@/components/Page1Components/DriveAlert/DriveAlert1'
 import DualCamComponent from '@/components/Page1Components/DualCamComponent/DualCamComponent'
@@ -20,56 +18,48 @@ import SharpVision from '@/components/Page1Components/SharpVision/SharpVision'
 import VideoResolution from '@/components/Page1Components/VideoResolution/VideoResolution'
 import React from 'react'
 import { faqData } from '../utils/FaqData/FaqData'
-import FourKVideo from '@/components/Page1Components/FourKVideo/FourKVideo'
+import DriveSmarter from '@/components/HomepageComponents/DriveSmarter/DriveSmarter'
 
 const page = () => {
-    return (
-        <>
-            <section>
+  return (
+<>
+<section>
                 <HeroSection
-                    heading="4K Clarity Meets AI Intelligence"
-                    subheading="VREC-Z820DC Keeps the Road on Record"
+                    heading="When Detail Matters the Most"
+                    subheading="VREC‑H520DC captures sharp 2K video, even in low light and on the move."
                 />
             </section>
             <section>
                 <VideoResolution
 
-                    highlightedText="Sharp Footage in Low Light"
-                    heading="AI Powered Night Vision"
-                    subheading="An 8MP sensor that captures sharp, detailed video with high sensitivity, preserving image quality even during night drives and low-light conditions."
+                    highlightedText="See the Road in High Definition"
+                    heading="2K Video Resolution"
+                    subheading=" From morning commutes to late-night returns, the front camera records in sharp 2K while the rear captures in Full HD. Whether it’s a close call or a scenic stretch, you’ll have a clear, reliable record from both angles."
                 />
-            </section>
-
-            <section>
-                <FourKVideo
-
-                    highlightedText="Details Stay Intact"
-                    heading="4K Video Resolution"
-                    subheading="The VREC-Z820DC records in true 4K, producing sharp video that makes plates, signs and unexpected moments easy to identify when needed."/>
             </section>
             <section>
                 <SharpVision
 
-                    highlightedText="Clarity That Goes Further"
-                    heading="High-Performance Imaging"
-                    subheading='The VREC-Z820DC uses a Sony STARVIS IMX415 sensor, an f/1.8 aperture and a 7-layer glass lens. Together, they capture sharp, bright footage with accurate detail even in low or uneven lighting.'
+                    highlightedText="STARVIS 2 Sensor + HDR"
+                    heading="Sharp Vision in Every Frame"
+                    subheading='Equipped with Sony’s STARVIS 2 sensor and HDR processing, the VREC-H520DC delivers clear, balanced video with improved contrast and visibility, especially in challenging lighting.'
                 />
             </section>
             <section>
                 <DynamicContent
 
-                    highlightedText='Sharp On-Screen Clarity'
-                    heading='3.2" IPS Display'
-                    subheading="The 8.1 cm built-in screen lets you review footage and adjust settings with sharp detail, all without taking up space on your dash."
+                    highlightedText='Consistent Clarity in Any Light'
+                    heading='High Dynamic Range'
+                    subheading="HDR keeps exposure balanced so footage stays sharp and detailed whether you're driving under bright sunlight, through shadows or into low-light conditions."
 
                 />
             </section>
             <section>
                 <GSensor
 
-                    highlightedText='Adapts to Any Light'
-                    heading='WDR & HDR Recording'
-                    subheading='It adjusts exposure in real time, preserving visibility and fine detail, so footage stays clear in both bright and low-light conditions.'
+                    highlightedText='Automatic Event Recording'
+                    heading='Built-in G-Sensor'
+                    subheading='Stay protected with built-in G-sensor technology that automatically locks important footage during emergencies.'
 
                 />
             </section>
@@ -176,7 +166,8 @@ const page = () => {
                 <ZenVue />
             </section>
             <section>
-                <ProductFeatureTable />
+                <ProductFeatureTable
+                 />
             </section>
             <section>
                 <EverythingNeedToKnow
@@ -195,7 +186,8 @@ const page = () => {
 
             <Features />
 
-        </>)
+
+</>  )
 }
 
 export default page

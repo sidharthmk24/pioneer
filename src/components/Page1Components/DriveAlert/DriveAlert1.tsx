@@ -1,6 +1,21 @@
-import Image from "next/image";
+import Image, { ImageProps } from "next/image";
 
-export default function DriveAlert1() {
+
+
+ type DriveAlertProps={
+
+  highlightedText?: string;
+  heading: string;
+subheading: string;
+alert1Image: string;
+  alert2Image: string;
+  alert3Image: string;
+alert1?: string;
+  alert2?: string;
+  alert3?: string; 
+}
+
+export default function DriveAlert1({ highlightedText, heading, subheading , alert1, alert2, alert3, alert1Image, alert2Image, alert3Image }: DriveAlertProps) {
   return (
     <section className="min-h-screen bg-black text-white flex flex-col justify-between px-4 sm:px-6 py-10 text-center">
       {/* Top Icon */}
@@ -19,13 +34,13 @@ export default function DriveAlert1() {
         {/* Headings */}
         <div>
           <p className="text-[#AD2239] text-[14px] sm:text-[20px] font-bold mb-5 sm:mb-3">
-            ADAS Enabled
+            {highlightedText}
           </p>
           <h2 className="text-[25px] sm:text-[56px] font-semibold mb-5 sm:mb-4 leading-tight sm:leading-none">
-            Smart Alerts for Safer Driving
+            {heading}
           </h2>
           <p className="text-[#ABABAB] text-[12px] sm:text-[18px] max-w-md sm:max-w-4xl mx-auto leading-snug sm:leading-relaxed">
-            Get audio alerts for lane departure, forward collision and stop-and-go alert so you stay aware of your surroundings and respond faster to sudden changes on the road.
+            {subheading}
           </p>
         </div>
 
@@ -34,42 +49,42 @@ export default function DriveAlert1() {
           {/* Lane Departure Alert */}
           <div className="flex flex-col items-center space-y-2">
             <Image
-              src="/images/svgs/laneIcon.svg"
+              src={alert1Image}
               alt="Lane Departure"
               width={40}
               height={40}
               className="sm:w-[60px] sm:h-[60px]"
             />
             <p className="text-white font-medium text-[10px] sm:text-sm">
-              Lane Departure Alert
+              {alert1}
             </p>
           </div>
 
           {/* Forward Collision Alert */}
           <div className="flex flex-col items-center space-y-2">
             <Image
-              src="/images/svgs/collisionIcon.svg"
+              src={alert2Image}
               alt="Forward Collision"
               width={40}
               height={40}
               className="sm:w-[60px] sm:h-[60px]"
             />
             <p className="text-white font-medium text-[10px] sm:text-sm">
-              Forward Collision Alert
+              {alert2}
             </p>
           </div>
 
           {/* Stop & Go Alert */}
           <div className="flex flex-col items-center space-y-2">
             <Image
-              src="/images/svgs/stopnGoIcon.svg"
+              src={alert3Image}
               alt="Stop and Go"
               width={40}
               height={40}
               className="sm:w-[60px] sm:h-[60px]"
             />
             <p className="text-white font-medium text-[10px] sm:text-sm">
-              Stop & Go Alert
+              {alert3}
             </p>
           </div>
         </div>

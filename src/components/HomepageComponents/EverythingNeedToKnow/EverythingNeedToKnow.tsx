@@ -4,7 +4,16 @@ import React, { useState } from 'react'
 import { faqData } from '@/app/utils/FaqData/FaqData';
 import { Minus, Plus } from 'lucide-react';
 
-export default function EverythingNeedToKnow() {
+type FAQItem = {
+  question: string;
+  answer: string;
+};
+
+type Props = {
+  faqData: FAQItem[];
+};
+
+export default function EverythingNeedToKnow({ faqData }: Props) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const toggleItem = (index: number) => {

@@ -7,9 +7,15 @@ import { ScrollTrigger } from "gsap/all"
 import { useEffect, useRef } from "react"
 
 
+type FieldOfVisionProps = {
+  highlightedText?: string;
+  heading: string;
+  subheading: string;
+}
+
 gsap.registerPlugin(ScrollTrigger)
 
-export default function FieldOfVision() {
+export default function FieldOfVision( {highlightedText, heading, subheading}: FieldOfVisionProps) {
   const clipRef = useRef(null)
   const MobileRef = useRef(null)
 
@@ -77,24 +83,22 @@ scrub: true,
           //       style={{
           //   background: 'radial-gradient(circle, #ffffffc9 0%, #8a8a8aff 50%,  #8a8a8aff, transparent 80%)',
           // }}
-          ref={clipRef} className="absolute top-0 left-0 w-full h-[600px] bg-[#1a1a1a] z-0 clip-path-angle" />
+          ref={clipRef} className="absolute top-0 left-0 w-full h-[600px] bg-[white] z-0 clip-path-angle" />
 
         {/* Content */}
         <div className="relative z-10 flex flex-col lg:flex-row justify-between items-start lg:items-center min-h-screen max-w-7xl mx-auto pt-32 lg:pt-12 px-6 lg:px-12">
           {/* Left side heading */}
           <div className="space-y-2 max-w-sm">
-            <p className="text-sm text-[#AD2239] text-center font-bold">Wide Angle View</p>
+            <p className="text-sm text-[#AD2239] text-center font-bold">{highlightedText}</p>
             <h1 className="text-[56px] sm:text-4xl font-medium text-white">
-              140° Field of Vision
+              {heading}
             </h1>
           </div>
 
           {/* Right side description */}
           <div className="mt-8 lg:mt-0 max-w-md text-[18px] text-[#ABABAB] leading-relaxed lg:text-center">
             <p>
-              The lens captures more of what’s around you including<br />
-              lanes, nearby vehicles and surroundings so you get a<br />
-              complete view of every drive.
+              {subheading}
             </p>
           </div>
         </div>
