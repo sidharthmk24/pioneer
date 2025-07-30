@@ -56,5 +56,66 @@ export const faqData ={
       answer: "The VREC-H120SC is a single front-facing camera, optimized for simplicity, clarity, and compact installation."
     },
 
+  ],
+
+  // page3
+
+   set3:[
+    {
+      question: "Does the VREC-H320SC support dual camera recording?",
+      answer: "Yes, it supports dual-channel input, allowing you to connect an optional rear camera for full front and rear coverage."
+    },
+    {
+      question: "Is GPS tracking built into this model?",
+      answer: "Yes, the VREC-H320SC includes a built-in GPS logger to record route, location, and speed data alongside your video."
+    },
+    {
+      question: "What safety features are included?",
+      answer: "The dashcam offers intelligent ADAS alerts, including lane departure, forward collision, and stop & go warnings—all delivered through clear audio prompts."
+    },
+    {
+      question: "How much storage does it support?",
+      answer: "It supports microSD™ cards up to 512 GB (Class 10 or above), giving you extended space for continuous and event-based recording."
+    },
+        {
+      question: "Does it work while the car is parked?",
+      answer: "Yes, the VREC-H320SC includes Parking Mode to monitor motion or impact while the car is off."
+    },
+    {
+      question: "What is the field of view on this model?",
+      answer: "It features a wide 139° diagonal field of view, offering broad visibility without image distortion."
+    },
+
+  ],
+   // page4
+
+   set4:[
+    {
+      question: "What resolution does the VREC-H120SC support?",
+      answer: "It records in sharp 1.5K (1296P), offering detailed footage ideal for daily driving and incident capture."
+    },
+    {
+      question: "Is the VREC-H120SC easy to install?",
+      answer: "Yes, its compact and lightweight design allows for quick, discreet installation with minimal setup—perfect for first-time dashcam users."
+    },
+    {
+      question: "Does this model support Parking Mode?",
+      answer: "Yes, it can record while parked to capture motion or impacts."
+      //  disclaimer?:"This feature is available only with additional setup and components."
+    },
+    {
+      question: "How much storage can it handle?",
+      answer: "The VREC-H120SC supports microSD™ cards up to 128 GB (Class 10 or higher), suitable for extended loop and event recording."
+    },
+        {
+      question: "Is it a front-only camera?",
+      answer: "Yes, this is a single-channel dashcam designed for front-facing recording, optimized for simplicity and space-saving installation."
+    },
+    {
+      question: "Are there any driver assistance alerts?",
+      answer: "This model does not include ADAS alerts, focusing instead on high-quality recording in a compact, easy-to-use format."
+    },
+
   ]
+
 }

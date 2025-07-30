@@ -21,6 +21,9 @@ import VideoResolution from '@/components/Page1Components/VideoResolution/VideoR
 import React from 'react'
 import { faqData } from '../utils/FaqData/FaqData'
 import FourKVideo from '@/components/Page1Components/FourKVideo/FourKVideo'
+import HdrRecording from '@/components/Page1Components/HdrRecording/HdrRecording'
+import { defaultProducts } from '../utils/ProductData/ProductData'
+
 
 const page = () => {
     return (
@@ -29,6 +32,7 @@ const page = () => {
                 <HeroSection
                     heading="4K Clarity Meets AI Intelligence"
                     subheading="VREC-Z820DC Keeps the Road on Record"
+                    headingMobile="Records What You Don’t See"
                 />
             </section>
             <section>
@@ -57,7 +61,7 @@ const page = () => {
             </section>
             <section>
                 <DynamicContent
-
+style="flex-col items-center justify-end sm:items-start sm:justify-center"
                     highlightedText='Sharp On-Screen Clarity'
                     heading='3.2" IPS Display'
                     subheading="The 8.1 cm built-in screen lets you review footage and adjust settings with sharp detail, all without taking up space on your dash."
@@ -65,7 +69,7 @@ const page = () => {
                 />
             </section>
             <section>
-                <GSensor
+                <HdrRecording
 
                     highlightedText='Adapts to Any Light'
                     heading='WDR & HDR Recording'
@@ -83,7 +87,7 @@ const page = () => {
                     subheading="The VREC-Z820DC monitors lane position, vehicle distance and traffic flow to deliver timely alerts and help you stay in control."
                     alert1Image="/images/svgs/laneIcon.svg"
                     alert2Image="/images/svgs/collisionIcon.svg"
-                    alert3Image="/images/svgs/stowebpoIcon.svg"
+                    alert3Image="/images/svgs/stopnGoIcon.svg"
                     alert1="Lane Departure Alert"
                     alert2="Forward Collision Alert"
                     alert3="Stop & Go Alert"
@@ -113,6 +117,8 @@ const page = () => {
             </section>
             <section>
                 <OptionalParking
+                                style='flex flex-col items-center sm:items-start justify-center sm:justify-center'
+
                     highlightedText='Monitors While You’re Away'
                     heading='Optional Parking Mode'
                     subheading='Parking mode requires additional installation of an external Hardwire Kit, which enables power supply to the Dash Camera directly from the vehicle battery.'
@@ -163,7 +169,7 @@ const page = () => {
                             compareSubheading: "From sharp sunlight to shadowy underpasses, the Sony STARVIS sensor adapts in real time — handling glare, contrast and light shifts with ease for clear and consistent footage in every driving condition.",
                             tabtitle: "Prefer Dual 4K Coverage?",
                             image2: "/images/CarBroken.png",
-                            // image2: "/images/page1Images/frontCamera2.webp",
+                            image1: "/images/page1Images/frontCamera2.webp",
                         }
 
 
@@ -176,7 +182,11 @@ const page = () => {
                 <ZenVue />
             </section>
             <section>
-                <ProductFeatureTable />
+                <ProductFeatureTable 
+                
+                 products={defaultProducts}
+  priorityProductIndex={0}
+                />
             </section>
             <section>
                 <EverythingNeedToKnow
