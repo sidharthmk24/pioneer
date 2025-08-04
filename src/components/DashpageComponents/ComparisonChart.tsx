@@ -93,12 +93,12 @@ export default function ComparisonChart({ onSaveRegister }: ComparisonChartProps
             <p className="text-[#ABABAB] text-[18px]">
               Edit the text in the fields below and click 'Save' to update the website.
             </p>
-            <button
+            {/* <button
               onClick={saveAllChanges}
               className="bg-[#AD2239] text-white px-5 py-2 rounded hover:bg-[#911c30] transition"
             >
               Save Changes
-            </button>
+            </button> */}
           </div>
 
           {error && (
@@ -133,11 +133,11 @@ export default function ComparisonChart({ onSaveRegister }: ComparisonChartProps
                       {['feature', 'Z820DC', 'H520DC', 'H320SC', 'H120SC'].map((field) => (
                         <td
                           key={field}
-                          className="px-4 py-4 w-[240px] border border-gray-600/30 text-center"
+                          className="px-4 py-9   w-[240px] border-r border-gray-600/30 text-center"
                         >
                           <input
                             type="text"
-                            className="w-full bg-transparent text-white text-center border border-transparent focus:outline-none focus:border-gray-500"
+                            className="w-full bg-transparent text-white text-center  border-transparent focus:outline-none focus:border-gray-500"
                             value={row[field as keyof Omit<ComparisonData, 'id'>] || ''}
                             onChange={(e) => {
                               const newData = [...comparisonData];

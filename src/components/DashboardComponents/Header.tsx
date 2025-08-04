@@ -1,18 +1,23 @@
+
 import Image from "next/image";
 import dashIcon from "../../../public/Images/dashboard/svgs/dash1.svg";
 import editIcon from "../../../public/Images/dashboard/svgs/edit.svg";
 import { ChevronRight } from "lucide-react";
 
 
+
 interface HeaderProps {
-  onSaveClick: () => void;
+ onSaveClick: () => void;
 }
 
 
 
 
-// 🔧 Accept the `onSave` function as a prop
-export default function Header({ onSaveClick }: { onSaveClick: () => HeaderProps })  {
+interface HeaderProps {
+  onSaveClick: () => void;
+}
+
+export default function Header({ onSaveClick }: HeaderProps) {
   return (
     <div className="flex justify-between items-center py-6 px-22 w-full border-gray-700">
       <div className="text-gray-400 text-sm breadcrumbs relative flex flex-row gap-2">

@@ -46,7 +46,7 @@ export default function DetailedSpec({ onSaveRegister }: { onSaveRegister: (fn: 
       await updateDoc(docRef, rest);
     }
 
-    alert('Detailed specs saved successfully!');
+    // alert('Detailed specs saved successfully!');
   } catch (err) {
     console.error('Error saving detailed specs:', err);
     alert('Failed to save detailed specs.');
@@ -155,7 +155,7 @@ useEffect(() => {
         <div className="">
            <div className="flex justify-between mb-4">
                      <p className='px-8 text-[#ABABAB] text-18px'>Edit the text in the fields below and click 'Save' to update the website</p>
-                        <button
+                        {/* <button
                         onClick={handleAddSpec}
                         className="flex me-27 items-center gap-2 px-4 py-2 bg-[#AD2239] hover:bg-[#911c30] text-white rounded-lg font-medium transition-colors"
                       >
@@ -163,7 +163,7 @@ useEffect(() => {
           
           
                         save changes
-                      </button>
+                      </button> */}
                    </div>
         <div className="px-4 md:px-22 pb-8">
           {error && (

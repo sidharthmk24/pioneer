@@ -1,8 +1,16 @@
 import Image from "next/image";
 import HeadLogo from '../../../public/Images/dashboard/headLogo.png'
+import { signOut } from 'firebase/auth';
+import { auth } from '../../app/utils/Firebase/firebaseConfig';
+import { Router } from "lucide-react";
 
 // components/Sidebar.tsx
 export default function SideBar() {
+
+  const handleLogout = async () => {
+  await signOut(auth);
+  Router.push('/login');
+};
   return (
     <aside className="bg-[#121212] text-white w-64 h-screen p-6 flex flex-col  justify-between">
       <div>
@@ -27,7 +35,7 @@ export default function SideBar() {
           ))}
         </ul>
       </div>
-      <button className="text-gray-400 hover:text-white text-sm">Sign Out</button>
+      <button className="text-gray-400 hover:text-white text-sm" onClick={handleLogout}>Sign Out</button>
     </aside>
   );
 }
