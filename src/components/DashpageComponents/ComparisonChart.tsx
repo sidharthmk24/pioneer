@@ -1,11 +1,11 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { collection, getDocs, onSnapshot } from 'firebase/firestore';
-import { ChevronUp, ChevronDown, Plus } from 'lucide-react';
+import { collection, doc, getDocs, onSnapshot, updateDoc } from 'firebase/firestore';
+import { ChevronUp, ChevronDown } from 'lucide-react';
 import { db } from '../../app/utils/Firebase/firebaseConfig';
-import AddComparisonModal from '../DashpageComponents/Modals/ComparisionModal';
 
 interface ComparisonData {
+  id: string;
   feature: string;
   Z820DC: string;
   H520DC: string;
@@ -13,39 +13,24 @@ interface ComparisonData {
   H120SC: string;
 }
 
-export default function ComparisonChart() {
+interface ComparisonChartProps {
+  onSaveRegister: (fn: () => void) => void;
+}
+
+export default function ComparisonChart({ onSaveRegister }: ComparisonChartProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [showModal, setShowModal] = useState(false);
-  const [isModalVisible, setIsModalVisible] = useState(false);
   const [comparisonData, setComparisonData] = useState<ComparisonData[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  const testFirebaseConnection = async () => {
-    try {
-      console.log('Testing Firebase connection...');
-      const snapshot = await getDocs(collection(db, 'comparison_chart'));
-      console.log('Firebase connection successful. Found', snapshot.docs.length, 'documents');
-      return true;
-    } catch (error) {
-      console.error('Firebase connection test failed:', error);
-      setError('Firebase connection failed. Please check your internet connection and Firebase configuration.');
-      return false;
-    }
-  };
-
   const fetchData = async () => {
     try {
       setLoading(true);
-      setError('');
-      
-      // Test connection first
-      const isConnected = await testFirebaseConnection();
-      if (!isConnected) return;
-
       const snapshot = await getDocs(collection(db, 'comparison_chart'));
-      const data = snapshot.docs.map(doc => doc.data() as ComparisonData);
-      console.log('Fetched data:', data);
+      const data = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data(),
+      })) as ComparisonData[];
       setComparisonData(data);
     } catch (error: any) {
       console.error('Error fetching data:', error);
@@ -55,11 +40,26 @@ export default function ComparisonChart() {
     }
   };
 
-  // Real-time listener for data changes
+  const saveAllChanges = async () => {
+    try {
+      for (const row of comparisonData) {
+        const docRef = doc(db, 'comparison_chart', row.id);
+        const { id, ...data } = row;
+        await updateDoc(docRef, data);
+      }
+      alert('Changes saved successfully!');
+    } catch (error) {
+      console.error('Error saving changes:', error);
+      setError('Failed to save changes. Please try again.');
+    }
+  };
+
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, 'comparison_chart'), (snapshot) => {
-      const data = snapshot.docs.map(doc => doc.data() as ComparisonData);
-      console.log('Real-time data update:', data);
+      const data = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data(),
+      })) as ComparisonData[];
       setComparisonData(data);
       setLoading(false);
       setError('');
@@ -72,17 +72,10 @@ export default function ComparisonChart() {
     return () => unsubscribe();
   }, []);
 
-  const handleAddFeature = () => {
-    setShowModal(true);
-    // Small delay to ensure state is set before animation
-    setTimeout(() => setIsModalVisible(true), 10);
-  };
+  useEffect(() => {
+    onSaveRegister(saveAllChanges);
+  }, [comparisonData]);
 
-  const handleModalClose = () => {
-    setIsModalVisible(false);
-    // Wait for animation to complete before hiding modal
-    setTimeout(() => setShowModal(false), 300);
-  };
 
   return (
     <div className="border-b border-gray-700/30 py-1">
@@ -95,73 +88,22 @@ export default function ComparisonChart() {
       </div>
 
       {isOpen && (
-        <div className="">
-               <div className="flex justify-between mb-4">
-                               <p className='px-8 text-[#ABABAB] text-18px'>Edit the text in the fields below and click 'Save' to update the website</p>
-                                  {/* <button
-                                  onClick={handleAddFeature}
-                                  className="flex me-27 items-center gap-2 px-4 py-2 bg-[#AD2239] hover:bg-[#911c30] text-white rounded-lg font-medium transition-colors"
-                                >
-                                  <Plus size={20} />
-                    
-                    
-                    
-                                  Add
-                                </button> */}
-                             </div>
         <div className="px-4 md:px-22 pb-8">
+          <div className="flex justify-between mb-4">
+            <p className="text-[#ABABAB] text-[18px]">
+              Edit the text in the fields below and click 'Save' to update the website.
+            </p>
+            <button
+              onClick={saveAllChanges}
+              className="bg-[#AD2239] text-white px-5 py-2 rounded hover:bg-[#911c30] transition"
+            >
+              Save Changes
+            </button>
+          </div>
+
           {error && (
             <div className="mb-4 p-3 bg-red-900/20 border border-red-700/50 rounded text-red-300">
               {error}
-            </div>
-          )}
-          
-          <div className="mb-6 flex justify-between items-center">
-            {/* <h3 className="text-white text-lg font-semibold">Comparison Data</h3>
-            <button
-              onClick={handleAddFeature}
-              className="flex items-center gap-2 px-4 py-2 bg-[#AD2239] hover:bg-[#911c30] text-white rounded-lg font-medium transition-colors"
-            >
-              <Plus size={20} />
-              Add 
-            </button> */}
-          </div>
-
-          {/* Modal */}
-          {showModal && (
-            <div 
-              className={`fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4 transition-all duration-300 ease-in-out ${
-                isModalVisible 
-                  ? 'opacity-100 scale-100' 
-                  : 'opacity-0 scale-95'
-              }`}
-              onClick={handleModalClose}
-            >
-              <div 
-                className={`bg-[#1A1A1A] border border-gray-700/50 rounded-2xl p-8 max-w-2xl w-full mx-4 shadow-2xl transition-all duration-300 ease-in-out transform ${
-                  isModalVisible 
-                    ? 'translate-y-0 opacity-100 scale-100' 
-                    : 'translate-y-4 opacity-0 scale-95'
-                }`}
-                onClick={(e) => e.stopPropagation()}
-              >
-                <div className="flex justify-between items-center mb-8">
-                  <h3 className="text-white text-2xl font-semibold">Feature</h3>
-                  <button
-                    onClick={handleModalClose}
-                    className="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center text-white hover:bg-gray-600 transition-colors"
-                  >
-                    ×
-                  </button>
-                </div>
-                
-                <AddComparisonModal 
-                  onAdded={() => {
-                    fetchData();
-                    handleModalClose();
-                  }} 
-                />
-              </div>
             </div>
           )}
 
@@ -169,51 +111,51 @@ export default function ComparisonChart() {
             <table className="w-full border border-gray-600/30 rounded-lg">
               <thead>
                 <tr>
-                  <th className="px-6 py-8 border border-gray-600/30 text-left text-[#ABABAB] font-medium text-[20px]"></th>
-                  <th className="px-6 py-4 border border-gray-600/30 text-center text-[#ABABAB] font-medium text-[20px]">VREC - Z820DC</th>
-                  <th className="px-6 py-4 border border-gray-600/30 text-center text-[#ABABAB] font-medium text-[20px]">VREC - H520DC</th>
-                  <th className="px-6 py-4 border border-gray-600/30 text-center text-[#ABABAB] font-medium text-[20px]">VREC - H320SC</th>
-                  <th className="px-6 py-4 border border-gray-600/30 text-center text-[#ABABAB] font-medium text-[20px]">VREC - H120SC</th>
+                  <th className="px-6 py-4 border border-gray-600/30 text-left text-[#ABABAB] text-[20px]">Feature</th>
+                  <th className="px-6 py-4 border border-gray-600/30 text-center text-[#ABABAB] text-[20px]">VREC - Z820DC</th>
+                  <th className="px-6 py-4 border border-gray-600/30 text-center text-[#ABABAB] text-[20px]">VREC - H520DC</th>
+                  <th className="px-6 py-4 border border-gray-600/30 text-center text-[#ABABAB] text-[20px]">VREC - H320SC</th>
+                  <th className="px-6 py-4 border border-gray-600/30 text-center text-[#ABABAB] text-[20px]">VREC - H120SC</th>
                 </tr>
               </thead>
               <tbody>
                 {loading ? (
                   <tr>
-                    <td colSpan={5} className="px-6 py-4 text-center text-[#ABABAB]">
-                      Loading data...
-                    </td>
+                    <td colSpan={5} className="text-center py-4 text-[#ABABAB]">Loading data...</td>
                   </tr>
                 ) : comparisonData.length === 0 ? (
                   <tr>
-                    <td colSpan={5} className="px-6 py-4 text-center text-[#ABABAB]">
-                      No data available. Click "Add New Feature" to get started.
-                    </td>
+                    <td colSpan={5} className="text-center py-4 text-[#ABABAB]">No data available</td>
                   </tr>
                 ) : (
-                  comparisonData.map((row, index) => (
-                    <tr key={index} className="hover:bg-[#1A1A1A]/50">
-                      <td className="px-6 w-[240px] py-9 border-r border-gray-600/30 text-white font-medium text-[20px]">
-                        {row.feature || '-'}
-                      </td>
-                      <td className="px-6 py-4 w-[240px] border-r border-gray-600/30 text-center text-[#ABABAB] text-[20px]">
-                        {row.Z820DC || '-'}
-                      </td>
-                      <td className="px-6 py-4 w-[240px] border-r border-gray-600/30 text-center text-[#ABABAB] text-[20px]">
-                        {row.H520DC || '-'}
-                      </td>
-                      <td className="px-6 py-4 w-[240px] border-r border-gray-600/30 text-center text-[#ABABAB] text-[20px]">
-                        {row.H320SC || '-'}
-                      </td>
-                      <td className="px-6 py-4 w-[240px] text-center text-[#ABABAB] text-[20px]">
-                        {row.H120SC || '-'}
-                      </td>
+                  comparisonData.map((row, rowIndex) => (
+                    <tr key={row.id} className="hover:bg-[#1A1A1A]/50">
+                      {['feature', 'Z820DC', 'H520DC', 'H320SC', 'H120SC'].map((field) => (
+                        <td
+                          key={field}
+                          className="px-4 py-4 w-[240px] border border-gray-600/30 text-center"
+                        >
+                          <input
+                            type="text"
+                            className="w-full bg-transparent text-white text-center border border-transparent focus:outline-none focus:border-gray-500"
+                            value={row[field as keyof Omit<ComparisonData, 'id'>] || ''}
+                            onChange={(e) => {
+                              const newData = [...comparisonData];
+                              newData[rowIndex] = {
+                                ...newData[rowIndex],
+                                [field]: e.target.value,
+                              };
+                              setComparisonData(newData);
+                            }}
+                          />
+                        </td>
+                      ))}
                     </tr>
                   ))
                 )}
               </tbody>
             </table>
           </div>
-        </div>
         </div>
       )}
     </div>

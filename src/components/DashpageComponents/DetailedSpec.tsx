@@ -4,19 +4,54 @@ import { collection, getDocs, onSnapshot } from 'firebase/firestore';
 import { ChevronUp, ChevronDown, Plus } from 'lucide-react';
 import { db } from '../../app/utils/Firebase/firebaseConfig';
 import DetailedSpecsModal from './Modals/DetailedSpecsModal';
+import { updateDoc, doc } from 'firebase/firestore';
 
 interface SpecData {
+  id: string;
   feature: string;
   value: string;
 }
 
-export default function DetailedSpec() {
+interface DetailedSpecProps {
+  onSaveRegister: (fn: () => void) => void;
+}
+
+
+export default function DetailedSpec({ onSaveRegister }: { onSaveRegister: (fn: () => void) => void }) {
+
+
   const [isOpen, setIsOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [specsData, setSpecsData] = useState<SpecData[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+
+
+    useEffect(() => {
+    onSaveRegister(saveChanges);
+  }, [specsData]);
+  
+
+
+  const saveChanges = async () => {
+  try {
+    console.log("Saving specsData:", specsData); // Debug
+
+    for (const row of specsData) {
+      const { id, ...rest } = row;
+      console.log("Updating doc:", id, rest); // Debug
+
+      const docRef = doc(db, 'detailed_specs', id);
+      await updateDoc(docRef, rest);
+    }
+
+    alert('Detailed specs saved successfully!');
+  } catch (err) {
+    console.error('Error saving detailed specs:', err);
+    alert('Failed to save detailed specs.');
+  }
+};
 
   const testFirebaseConnection = async () => {
     try {
@@ -41,7 +76,12 @@ export default function DetailedSpec() {
       if (!isConnected) return;
 
       const snapshot = await getDocs(collection(db, 'detailed_specs'));
-      const data = snapshot.docs.map(doc => doc.data() as SpecData);
+      // const data = snapshot.docs.map(doc => doc.data() as SpecData);
+ const data = snapshot.docs.map(doc => ({
+  id: doc.id,
+  ...doc.data()
+})) as (SpecData & { id: string })[];
+ 
       console.log('Fetched detailed specs data:', data);
       setSpecsData(data);
     } catch (error: any) {
@@ -53,21 +93,34 @@ export default function DetailedSpec() {
   };
 
   // Real-time listener for data changes
-  useEffect(() => {
-    const unsubscribe = onSnapshot(collection(db, 'detailed_specs'), (snapshot) => {
-      const data = snapshot.docs.map(doc => doc.data() as SpecData);
-      console.log('Real-time detailed specs data update:', data);
-      setSpecsData(data);
-      setLoading(false);
-      setError('');
-    }, (error) => {
-      console.error('Error in real-time listener:', error);
-      setError(`Real-time listener error: ${error.message}`);
-      setLoading(false);
+useEffect(() => {
+  const unsubscribe = onSnapshot(collection(db, 'detailed_specs'), (snapshot) => {
+    const data = snapshot.docs.map(doc => ({
+      id: doc.id,
+      ...(doc.data() as Omit<SpecData, 'id'>),
+    }));
+
+    // Only update if not actively editing (optional, but safer)
+    setSpecsData((prev) => {
+      const isSame = JSON.stringify(prev) === JSON.stringify(data);
+      if (isSame) return prev; // skip overwrite
+      return data;
     });
 
-    return () => unsubscribe();
-  }, []);
+    setLoading(false);
+    setError('');
+  }, (error) => {
+    console.error('Error in real-time listener:', error);
+    setError(`Real-time listener error: ${error.message}`);
+    setLoading(false);
+  });
+
+  if (onSaveRegister) {
+    onSaveRegister(saveChanges);
+  }
+
+  return () => unsubscribe();
+}, []);
 
   const handleAddSpec = () => {
     setShowModal(true);
@@ -80,6 +133,13 @@ export default function DetailedSpec() {
     // Wait for animation to complete before hiding modal
     setTimeout(() => setShowModal(false), 300);
   };
+
+
+  const handleInputChange = (index: number, field: 'feature' | 'value', value: string) => {
+  const updatedSpecs = [...specsData];
+  updatedSpecs[index] = { ...updatedSpecs[index], [field]: value };
+  setSpecsData(updatedSpecs);
+};
 
   return (
     <div className="border-b border-gray-700/30 py-1">
@@ -95,16 +155,15 @@ export default function DetailedSpec() {
         <div className="">
            <div className="flex justify-between mb-4">
                      <p className='px-8 text-[#ABABAB] text-18px'>Edit the text in the fields below and click 'Save' to update the website</p>
-                        {/* <button
+                        <button
                         onClick={handleAddSpec}
                         className="flex me-27 items-center gap-2 px-4 py-2 bg-[#AD2239] hover:bg-[#911c30] text-white rounded-lg font-medium transition-colors"
                       >
-                        <Plus size={20} />
           
           
           
-                        Add
-                      </button> */}
+                        save changes
+                      </button>
                    </div>
         <div className="px-4 md:px-22 pb-8">
           {error && (
@@ -112,16 +171,10 @@ export default function DetailedSpec() {
               {error}
             </div>
           )}
-          
-          {/* <div className="mb-6 flex justify-between items-center">
+{/*           
+          <div className="mb-6 flex justify-between items-center">
             <h3 className="text-white text-lg font-semibold">Specifications</h3>
-            <button
-              onClick={handleAddSpec}
-              className="flex items-center gap-2 px-4 py-2 bg-[#AD2239] hover:bg-[#911c30] text-white rounded-lg font-medium transition-colors"
-            >
-              <Plus size={20} />
-              Add 
-            </button>
+           
           </div> */}
 
           {/* Modal */}
@@ -171,20 +224,26 @@ export default function DetailedSpec() {
                 Add specifications
               </div>
             ) : (
-              specsData.map((spec, index) => (
-                <div key={index} className="flex items-center space-x-4 mb-4">
-                  <div className="w-1/3">
-                    <div className="  p-3 rounded text-white font-medium">
-                      {spec.feature}
-                    </div>
-                  </div>
-                  <div className="w-2/3">
-                    <div className=" border border-gray-600 p-3 rounded text-gray-300">
-                      {spec.value}
-                    </div>
-                  </div>
-                </div>
-              ))
+            specsData.map((spec, index) => (
+  <div key={spec.id} className="flex items-center space-x-4 mb-4">
+    <div className="w-1/3">
+      <input
+        type="text"
+        className="w-full bg-transparent  border-gray-600 p-3 rounded text-white font-medium"
+        value={spec.feature}
+        onChange={(e) => handleInputChange(index, 'feature', e.target.value)}
+      />
+    </div>
+    <div className="w-2/3">
+      <input
+        type="text"
+        className="w-full bg-transparent border border-gray-600/50 p-3 rounded text-gray-300"
+        value={spec.value}
+        onChange={(e) => handleInputChange(index, 'value', e.target.value)}
+      />
+    </div>
+  </div>
+))
             )}
           </div>
         </div>
