@@ -1,3 +1,4 @@
+'use client';
 import Image from "next/image";
 import dashIcon from "../../../public/Images/dashboard/svgs/dash1.svg"
 import editIcon from "../../../public/Images/dashboard/svgs/edit.svg"
