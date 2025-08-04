@@ -4,19 +4,24 @@ import { ChevronDown } from "lucide-react";
 type HeroSectionProps={
 
   heading: string;
+  headingMobile?: string;
   subheading?: string;
+
 }
 
-export default function HeroSection({heading,subheading}:HeroSectionProps) {
+export default function HeroSection({heading,subheading,headingMobile}:HeroSectionProps) {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-black text-center px-4">
-      <div className="text-center max-w-screen mx-auto">
-        <h1 className="text-[40px] md:text-[90px] font-medium mb-4 text-white lg:py-2">
-          {heading}
-        </h1>
-        <p className="text-[17px] md:text-[30px] text-[#ABABAB] mb-6">
-         {subheading}
-        </p>
+    <div className="min-h-screen flex items-center justify-center bg-brown text-center px-6">
+      <div className="text-center max-w-screen mx-auto ">
+ <h1 className="text-[40px] md:text-[90px] font-medium mb-4 text-white text-center ">
+  {heading}
+</h1>
+        {/* <h1 className="text-[40px] text-center font-medium mb-4 text-white sm:hidden">
+  {headingMobile}
+</h1> */}
+<p className="text-[17px] w-[900px] max-w-screen text-center mx-auto  md:text-[40px] text-[#ABABAB] mb-6">
+  {subheading}
+</p>
 
         {/* Centered Button */}
         <div className="flex justify-center">

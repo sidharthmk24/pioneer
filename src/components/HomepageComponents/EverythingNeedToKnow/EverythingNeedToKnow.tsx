@@ -4,15 +4,13 @@ import React, { useState } from 'react'
 import { faqData } from '@/app/utils/FaqData/FaqData';
 import { Minus, Plus } from 'lucide-react';
 
-type FAQItem = {
-  question: string;
-  answer: string;
-};
 
 type Props = {
-  faqData: FAQItem[];
+  faqData: {
+    question: string;
+    answer: string;
+  }[];
 };
-
 export default function EverythingNeedToKnow({ faqData }: Props) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
@@ -32,7 +30,7 @@ export default function EverythingNeedToKnow({ faqData }: Props) {
 
         {/* RIGHT COLUMN - ACCORDION */}
         <div className="divide-y divide-gray-700 w-full">
-          {faqData.map((item, index) => (
+          {faqData?.map((item, index) => (
             <div key={index} className="py-4 mt-5">
               <button
                 className="flex justify-between items-center w-full text-left focus:outline-none"

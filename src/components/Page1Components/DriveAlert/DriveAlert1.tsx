@@ -19,7 +19,7 @@ export default function DriveAlert1({ highlightedText, heading, subheading , ale
   return (
     <section className="min-h-screen bg-black text-white flex flex-col justify-between px-4 sm:px-6 py-10 text-center">
       {/* Top Icon */}
-      <div className="pt-50 sm:pt-20">
+      <div className="pt-50 sm:pt-20 animate-fastpulse">
         <Image
           src="/images/svgs/dangerIcon.svg"
           alt="Warning Icon"
@@ -36,7 +36,7 @@ export default function DriveAlert1({ highlightedText, heading, subheading , ale
           <p className="text-[#AD2239] text-[14px] sm:text-[20px] font-bold mb-5 sm:mb-3">
             {highlightedText}
           </p>
-          <h2 className="text-[25px] sm:text-[56px] font-semibold mb-5 sm:mb-4 leading-tight sm:leading-none">
+          <h2 className="text-[25px] sm:text-[56px] font-medium mb-5 sm:mb-4 leading-tight sm:leading-none">
             {heading}
           </h2>
           <p className="text-[#ABABAB] text-[12px] sm:text-[18px] max-w-md sm:max-w-4xl mx-auto leading-snug sm:leading-relaxed">

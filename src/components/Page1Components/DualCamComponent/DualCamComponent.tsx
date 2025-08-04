@@ -14,7 +14,7 @@ export default function DualCamComponent ({highlightedText, heading, subheading}
         <p className="text-[#AD2239]/90 text-[20px]  font-bold mb-4">
           {highlightedText}
         </p>
-        <h1 className="text-white text-[32px] md:text-[56px] font-medium mb-4">
+        <h1 className="text-white whitespace-nowrap text-[32px] md:text-[56px] font-medium mb-4">
           {heading}
         </h1>
         <p className="text-[#ABABAB] text-[14px] md:text-[18px] leading-relaxed">

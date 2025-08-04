@@ -50,7 +50,7 @@ export default function Home() {
          <section>
         <BuiltInGps />
       </section>
-      <section>
+      {/* <section>
         <Compare />
 
 
@@ -68,7 +68,7 @@ export default function Home() {
       </section>
       <section className="mt-[10rem]" >
         <DriveSmarter />
-      </section>
+      </section> */}
 
       <section>
         <Footer />

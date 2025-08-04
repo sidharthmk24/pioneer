@@ -69,6 +69,7 @@ style="flex-col items-center justify-end sm:items-start sm:justify-center"
                 />
             </section>
             <section>
+            </section>
                 <HdrRecording
 
                     highlightedText='Adapts to Any Light'
@@ -76,7 +77,6 @@ style="flex-col items-center justify-end sm:items-start sm:justify-center"
                     subheading='It adjusts exposure in real time, preserving visibility and fine detail, so footage stays clear in both bright and low-light conditions.'
 
                 />
-            </section>
 
 
             <section>

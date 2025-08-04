@@ -7,6 +7,7 @@ import { SparklesCore } from "./SparklesCore"
 
 
 
+
 // const tabs = [
 //   {
 //     title: "Drive late?",
@@ -41,8 +42,8 @@ type tabDataProps={
   compareHeading:string
   compareSubheading:string
   tabtitle:string
-  image1?:string
-  image2?:string
+  image1:string
+  image2:string
 }
 
 export const Compare = ({tabs}:{tabs:tabDataProps[]}) => {
@@ -50,11 +51,18 @@ export const Compare = ({tabs}:{tabs:tabDataProps[]}) => {
   const [sliderXPercent, setSliderXPercent] = useState(50)
   const [isDragging, setIsDragging] = useState(false)
   const [activeTab, setActiveTab] = useState(0)
+  //  console.log("tabs:", tabs);
+  // console.log("activeTab:", activeTab);
+  // console.log(
+  //   "tabs[activeTab]:",
+  //   Array.isArray(tabs) && tabs.length > activeTab ? tabs[activeTab] : "invalid"
+  // );
   console.log(activeTab);
   
 
   const sliderRef = useRef<HTMLDivElement>(null)
-  const currentTab = tabs[activeTab]
+  const currentTab = Array.isArray(tabs) && tabs.length > activeTab ? tabs[activeTab] : null;
+   if (!currentTab) return null;
 
   const handleStart = (clientX: number) => setIsDragging(true)
   const handleEnd = () => setIsDragging(false)
@@ -78,12 +86,11 @@ export const Compare = ({tabs}:{tabs:tabDataProps[]}) => {
   <section className="w-full bg-black text-white flex flex-col items-center py-16 px-4">
   {/* Heading */}
   <div className="text-center max-w-xl mb-12">
-    <h2 className="text-3xl md:text-4xl font-semibold mb-4">
-      See What Most Cameras Miss
+    <h2 className="text-3xl sm:whitespace-nowrap md:text-4xl font-semibold mb-4">
+      {tabs[activeTab].heading}
     </h2>
     <p className="text-[#ABABAB] text-[13px] w-full md:text-base">
-      Real footage in real conditions. The VREC-Z820DC doesn’t just record,
-      it gives you clarity and context.
+      {tabs[activeTab].subheading}
     </p>
   </div>
 
