@@ -170,7 +170,7 @@ useEffect(() => {
         className="flex justify-between items-center cursor-pointer py-6 px-4 md:px-8"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <h2 className="text-white text-[48px] font-medium">Retailer Hyperlinks Management</h2>
+        <h2 className="text-white text-[35px] font-medium">Retailer Hyperlinks Management</h2>
         {isOpen ? <ChevronUp className="text-white" /> : <ChevronDown className="text-white" />}
       </div>
 

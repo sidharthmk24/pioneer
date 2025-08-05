@@ -110,7 +110,7 @@ useEffect(() => {
   return (
     <div className="border-b border-gray-700/30 py-1">
       <div className="flex justify-between items-center cursor-pointer py-6 px-4 md:px-8" onClick={() => setIsOpen(!isOpen)}>
-        <h2 className="text-white text-[42px] font-medium">FAQs</h2>
+        <h2 className="text-white text-[35px] font-medium">FAQs</h2>
         {isOpen ? <ChevronUp className="text-white" /> : <ChevronDown className="text-white" />}
       </div>
 

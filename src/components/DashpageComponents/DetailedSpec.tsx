@@ -152,10 +152,10 @@ console.log("Rendering specsData:", specsData); // ✅ Safe here
   return (
     <div className="border-b border-gray-700/30 py-1">
       <div
-        className="flex justify-between items-center cursor-pointer py-6 px-4 md:px-8"
+        className="flex justify-between items-center cursor-pointer py-4 px-4 md:px-8"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <h2 className="text-white text-[42px] font-medium">Detailed Specs</h2>
+        <h2 className="text-white text-[35px] font-medium">Detailed Specs</h2>
         {isOpen ? <ChevronUp className="text-white" /> : <ChevronDown className="text-white" />}
       </div>
 

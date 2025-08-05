@@ -20,7 +20,8 @@ interface HeaderProps {
 export default function Header({ onSaveClick,selectedModel,modelName,onToggleSidebar }: HeaderProps) {
   return (
     <>
-        <div className="flex justify-between items-center py-6 px-22 w-full border-gray-700">
+      {/* Header (full width, no padding) */}
+    <div className="flex justify-between items-center py-6 px-12 w-full border-gray-700">
       <div className="text-gray-400 text-sm breadcrumbs relative flex flex-row gap-2">
         <span className="mr-2" onClick={onToggleSidebar}>
           <Image className="w-[34px] h-[24px]" src={dashIcon} alt="" width={100} height={100} />
@@ -29,24 +30,25 @@ export default function Header({ onSaveClick,selectedModel,modelName,onToggleSid
         <span className="mr-2">
           <Image className="w-[34px] h-[24px]" src={editIcon} alt="" width={100} height={100} />
         </span>
-        <span><ChevronRight className="h-6 w-4 text-[#313131]" /></span>
+        <span>
+          <ChevronRight className="h-6 w-4 text-[#313131]" />
+        </span>
         <span className="font-medium text-[18px] text-[#FFFFFF]">{modelName}</span>
       </div>
 
-      {/* 🔘 Save Button */}
+      {/* Save Button */}
       <button
         onClick={onSaveClick}
         className="bg-[#AD2239] hover:bg-red-700 text-white px-4 py-2 rounded-lg"
-      > 
+      >
         Save Changes
       </button>
-            
-
-      
     </div>
 
-            <div className="border-t border-[#1F1F1F] w-[70vw] mb-6"></div>
-
+    {/* Underline with side padding */}
+    <div className="px-8">
+      <div className="border-t border-[#1F1F1F] w-full mb-6"></div>
+    </div>
     </>
 
     
