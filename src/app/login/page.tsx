@@ -9,6 +9,8 @@ import {
 import { doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '../../app/utils/Firebase/firebaseConfig';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import pioneerLogo from '../../../public/Images/dashboard/headLogo.png'
 
 export default function Login() {
   const router = useRouter();
@@ -94,9 +96,14 @@ export default function Login() {
   };
 
   return (
+    
     <div className="min-h-screen flex items-center justify-center relative overflow-hidden">
-      <div className="h-auto min-h-[26rem] w-[22rem] z-10 bg-gradient-to-b from-black via-[#191918] via-[#320A0A] to-black rounded-xl p-8 w-full max-w-sm shadow-lg backdrop-blur-sm">
-        <h2 className="text-white text-2xl font-bold text-center mb-4">
+      <div className="h-auto min-h-[30rem] w-[36rem] z-10 bg-gradient-to-b from-black via-[#191918] via-[#320A0A] to-black rounded-xl p-8   shadow-lg backdrop-blur-sm">
+<div className="flex justify-center items-center mb-12">
+                         <Image src={pioneerLogo} className='  items-center  ' alt='pioneer' width={200} height={100}  ></Image>  
+
+</div>
+        <h2 className="text-white text-2xl font-bold text-center mb-8">
          LOGIN
         </h2>
 
@@ -115,7 +122,7 @@ export default function Login() {
               placeholder="Name"
               value={formData.name}
               onChange={handleChange}
-              className="bg-transparent border border-gray-600 rounded px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500"
+              className="bg-transparent border border-gray-600 rounded px-4 py-4  text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500"
             />
           )}
           <input
@@ -124,7 +131,7 @@ export default function Login() {
             placeholder="Email"
             value={formData.email}
             onChange={handleChange}
-            className="bg-transparent border border-gray-600 rounded px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500"
+            className="bg-transparent border border-gray-600 rounded  px-4 py-2 mb-5 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500"
           />
           <input
             type="password"
@@ -134,13 +141,15 @@ export default function Login() {
             onChange={handleChange}
             className="bg-transparent border border-gray-600 rounded px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500"
           />
-          <button
+          <div className="flex justify-center items-center">
+            <button
             type="submit"
             disabled={loading}
-            className="bg-gradient-to-r from-[#320A0A] via-red-900 to-[#320A0A] text-white py-2 rounded hover:opacity-90 transition-all disabled:opacity-50"
+            className="bg-gradient-to-r from-[#320A0A] w-2/3 mt-8 via-red-900 to-[#320A0A] text-white py-2 rounded hover:opacity-90 transition-all disabled:opacity-50"
           >
            Login
           </button>
+          </div>
         </form>
 
         

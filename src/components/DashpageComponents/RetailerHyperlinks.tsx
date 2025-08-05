@@ -1,10 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ChevronUp, ChevronDown, X } from 'lucide-react';
 import { db, storage } from '../../app/utils/Firebase/firebaseConfig';
-import { doc, setDoc } from 'firebase/firestore';
+import { doc, getDoc, onSnapshot, setDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { deleteObject } from 'firebase/storage';
+
+
 
 interface Retailer {
   id: number;
@@ -13,36 +16,66 @@ interface Retailer {
   productLink: string;
   countryCode: string;
 }
+interface RetailerHyperlinksProps {
+  onSaveRegister: (fn: () => void) => void;
+  model: string;
+}
 
-export default function RetailerHyperlinks() {
+export default function RetailerHyperlinks({onSaveRegister,model}:RetailerHyperlinksProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [retailers, setRetailers] = useState<Retailer[]>([
-    {
-      id: 1,
-      name: 'Amazon',
-      logo: '',
-      productLink: '',
-      countryCode: ''
-    },
-    {
-      id: 2,
-      name: 'Noon',
-      logo: '',
-      productLink: '',
-      countryCode: ''
-    }
+
   ]);
+
+
+
+
+
 
   const [retailerFiles, setRetailerFiles] = useState<Record<number, File | null>>({});
 
-  const removeRetailer = (id: number) => {
-    setRetailers(prev => prev.filter(retailer => retailer.id !== id));
-    setRetailerFiles(prev => {
-      const copy = { ...prev };
-      delete copy[id];
-      return copy;
+const removeRetailer = async (id: number) => {
+  const retailer = retailers.find((r) => r.id === id);
+
+  // 1. Delete image from Firebase Storage (if exists)
+  if (retailer?.logo) {
+    try {
+      const baseUrl = "https://firebasestorage.googleapis.com/v0/b/";
+      const bucket = storage.app.options.storageBucket;
+
+      const pathStart = `${baseUrl}${bucket}/o/`;
+      const pathEncoded = retailer.logo.replace(pathStart, '').split('?')[0];
+      const imagePath = decodeURIComponent(pathEncoded);
+
+      const imageRef = ref(storage, imagePath);
+      await deleteObject(imageRef);
+      console.log(`Deleted image: ${imagePath}`);
+    } catch (err) {
+      console.error('Failed to delete image from storage:', err);
+    }
+  }
+
+  // 2. Remove from UI state
+  const updatedRetailers = retailers.filter((retailer) => retailer.id !== id);
+  setRetailers(updatedRetailers);
+  setRetailerFiles(prev => {
+    const copy = { ...prev };
+    delete copy[id];
+    return copy;
+  });
+
+  // 3. Remove from Firestore
+  const cleanedRetailers = updatedRetailers.map(({ id, ...rest }) => rest); // remove `id` before saving
+  try {
+    await setDoc(doc(db, 'dashboard', 'retailerHyperlinks'), {
+      retailers: cleanedRetailers,
     });
-  };
+    console.log('Firestore updated after deletion');
+  } catch (error) {
+    console.error('Failed to update Firestore:', error);
+  }
+};
+
 
   const updateRetailer = (id: number, field: keyof Retailer, value: string) => {
     setRetailers(prev =>
@@ -66,11 +99,13 @@ export default function RetailerHyperlinks() {
     ]);
   };
 
-  const uploadImage = async (file: File, retailerId: number): Promise<string> => {
-    const storageRef = ref(storage, `retailer_logos/${retailerId}_${file.name}`);
-    await uploadBytes(storageRef, file);
-    return getDownloadURL(storageRef);
-  };
+const uploadImage = async (file: File, retailerId: number): Promise<string> => {
+  const storageRef = ref(storage, `retailer_logos/${retailerId}_${file.name}`);
+  await uploadBytes(storageRef, file, {
+     contentType: file.type,
+  });
+  return getDownloadURL(storageRef);
+};
 
 const saveRetailers = async () => {
   try {
@@ -94,8 +129,8 @@ const saveRetailers = async () => {
     );
 
     await setDoc(doc(db, 'dashboard', 'retailerHyperlinks'), {
-      retailers: updatedRetailers,
-    });
+  retailers: updatedRetailers,
+});
 
 console.log('Starting save function...');
 console.log('Retailers:', retailers);
@@ -106,6 +141,29 @@ console.log('Retailer Files:', retailerFiles);
   }
 
 };
+
+useEffect(() => {
+  onSaveRegister(saveRetailers);
+}, [retailers, retailerFiles]);
+
+
+useEffect(() => {
+  const docRef = doc(db, 'dashboard', 'retailerHyperlinks');
+  const unsubscribe = onSnapshot(docRef, (snapshot) => {
+    if (snapshot.exists()) {
+      const data = snapshot.data();
+      const fetchedRetailers = data.retailers || [];
+      const retailersWithId = fetchedRetailers.map((retailer: any, index: number) => ({
+        id: index + 1,
+        ...retailer,
+      }));
+      setRetailers(retailersWithId);
+    }
+  });
+
+  return () => unsubscribe();
+}, []);
+
   return (
     <div className="border-b border-gray-700">
       <div
@@ -135,11 +193,11 @@ console.log('Retailer Files:', retailerFiles);
                     className="h-10 object-contain"
                   />
                 ) : (
-                  <span className="text-gray-500 text-sm">Upload SVG Logo</span>
+                  <span className="text-gray-500 text-sm">Upload  Logo</span>
                 )}
                 <input
                   type="file"
-                  accept="image/svg+xml"
+                  
                   onChange={(e) => {
                     const file = e.target.files?.[0] || null;
                     setRetailerFiles(prev => ({ ...prev, [retailer.id]: file }));

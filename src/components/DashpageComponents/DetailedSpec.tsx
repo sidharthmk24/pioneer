@@ -17,8 +17,9 @@ interface DetailedSpecProps {
 }
 
 
-export default function DetailedSpec({ onSaveRegister }: { onSaveRegister: (fn: () => void) => void }) {
+export default function DetailedSpec({ onSaveRegister,selectedCollection }: { onSaveRegister: (fn: () => void) => void ;selectedCollection:string}) {
 
+console.log(selectedCollection);
 
   const [isOpen, setIsOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -42,7 +43,7 @@ export default function DetailedSpec({ onSaveRegister }: { onSaveRegister: (fn: 
       const { id, ...rest } = row;
       console.log("Updating doc:", id, rest); // Debug
 
-      const docRef = doc(db, 'detailed_specs', id);
+      const docRef = doc(db, selectedCollection, id);
       await updateDoc(docRef, rest);
     }
 
@@ -56,7 +57,7 @@ export default function DetailedSpec({ onSaveRegister }: { onSaveRegister: (fn: 
   const testFirebaseConnection = async () => {
     try {
       console.log('Testing Firebase connection for detailed specs...');
-      const snapshot = await getDocs(collection(db, 'detailed_specs'));
+      const snapshot = await getDocs(collection(db, selectedCollection));
       console.log('Firebase connection successful. Found', snapshot.docs.length, 'documents');
       return true;
     } catch (error) {
@@ -75,7 +76,7 @@ export default function DetailedSpec({ onSaveRegister }: { onSaveRegister: (fn: 
       const isConnected = await testFirebaseConnection();
       if (!isConnected) return;
 
-      const snapshot = await getDocs(collection(db, 'detailed_specs'));
+      const snapshot = await getDocs(collection(db, selectedCollection));
       // const data = snapshot.docs.map(doc => doc.data() as SpecData);
  const data = snapshot.docs.map(doc => ({
   id: doc.id,
@@ -94,7 +95,7 @@ export default function DetailedSpec({ onSaveRegister }: { onSaveRegister: (fn: 
 
   // Real-time listener for data changes
 useEffect(() => {
-  const unsubscribe = onSnapshot(collection(db, 'detailed_specs'), (snapshot) => {
+  const unsubscribe = onSnapshot(collection(db, selectedCollection), (snapshot) => {
     const data = snapshot.docs.map(doc => ({
       id: doc.id,
       ...(doc.data() as Omit<SpecData, 'id'>),
@@ -120,7 +121,7 @@ useEffect(() => {
   }
 
   return () => unsubscribe();
-}, []);
+}, [selectedCollection]);
 
   const handleAddSpec = () => {
     setShowModal(true);
@@ -134,12 +135,19 @@ useEffect(() => {
     setTimeout(() => setShowModal(false), 300);
   };
 
+  console.log(specsData,"spec");
+  
+
+//   useEffect(()=>{
+// specsData.filter()
+//   },[])
 
   const handleInputChange = (index: number, field: 'feature' | 'value', value: string) => {
   const updatedSpecs = [...specsData];
   updatedSpecs[index] = { ...updatedSpecs[index], [field]: value };
   setSpecsData(updatedSpecs);
 };
+console.log("Rendering specsData:", specsData); // ✅ Safe here
 
   return (
     <div className="border-b border-gray-700/30 py-1">
@@ -178,7 +186,7 @@ useEffect(() => {
           </div> */}
 
           {/* Modal */}
-          {showModal && (
+          {/* {showModal && (
             <div 
               className={`fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4 transition-all duration-300 ease-in-out ${
                 isModalVisible 
@@ -197,7 +205,7 @@ useEffect(() => {
               >
                 <div className="flex justify-between items-center mb-8">
                   {/* <h3 className="text-white text-2xl font-semibold">Add New Specification</h3> */}
-                  <button
+                  {/* <button
                     onClick={handleModalClose}
                     className="text-gray-400 hover:text-white text-3xl font-light transition-colors"
                   >
@@ -212,7 +220,7 @@ useEffect(() => {
                 />
               </div>
             </div>
-          )}
+          )} */} 
 
           <div className="space-y-4">
             {loading ? (
@@ -222,9 +230,14 @@ useEffect(() => {
             ) : specsData.length === 0 ? (
               <div className="text-center text-[#ABABAB] py-8">
                 Add specifications
+                
               </div>
+              
             ) : (
+              
+              
             specsData.map((spec, index) => (
+              
   <div key={spec.id} className="flex items-center space-x-4 mb-4">
     <div className="w-1/3">
       <input

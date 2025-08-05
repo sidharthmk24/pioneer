@@ -2,12 +2,12 @@
 import DashboardMain from '../DashpageComponents/DashboardMain';
 
 
-export default function DashboardPage({ saveTrigger }: { saveTrigger: number }) {
+export default function DashboardPage({ saveTrigger,selectedModel }: { saveTrigger: number,selectedModel:string }) {
   return (
     <div className="flex h-screen bg-[#0D0D0D]">
       {/* Sidebar would go here if needed */}
       <div className="flex-1">
-        <DashboardMain saveTrigger={saveTrigger} />
+        <DashboardMain selectedModel={selectedModel} saveTrigger={saveTrigger} />
       </div>
     </div>
   );
