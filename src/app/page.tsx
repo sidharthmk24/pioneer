@@ -16,13 +16,36 @@ import { SparklesCore } from "@/components/HomepageComponents/SparklesCore/Spark
 import WhatCamerMiss from "@/components/HomepageComponents/WhatCameraMiss/WhatCameraMiss";
 import WideCam from "@/components/HomepageComponents/WideCam/WideCam";
 import ZenVue from "@/components/HomepageComponents/ZenVue/ZenVue";
+import metaUrl from '../../public/Images/dashboard/headLogo.png'
 
 
 
 
+export const metadata = {
+  title: 'Rubber Tapping App',
+  description: 'Monitor and manage rubber tapping efficiently.',
+  openGraph: {
+    title: 'Rubber Tapping App',
+    description: 'Monitor and manage rubber tapping efficiently.',
+    url: 'https://pioneer1.vercel.app/',
+    siteName: 'Pioneer',
+    images: [
+      {
+        url: {metaUrl},
+        width: 800,
+        height: 600,
+        alt: 'Rubber Tapping',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+};
 
 
 export default function Home() {
+
+  
   return (
     <>
 
