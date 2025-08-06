@@ -1,18 +1,36 @@
 'use client'
 
-import React, { useState } from 'react'
-import { faqData } from '@/app/utils/FaqData/FaqData';
-import { Minus, Plus } from 'lucide-react';
+import React, { useEffect, useState } from 'react'
+import { Minus, Plus } from 'lucide-react'
+import { collection, getDocs } from 'firebase/firestore'
+import { db } from '../../../app/utils/Firebase/firebaseConfig' // adjust the path based on your folder structure
 
+type FAQItem = {
+  question: string;
+  answer: string;
+};
 
 type Props = {
-  faqData: {
-    question: string;
-    answer: string;
-  }[];
+  collectionName: string; // e.g. 'faq_detailed_specs_Z820DC'
 };
-export default function EverythingNeedToKnow({ faqData }: Props) {
+
+export default function EverythingNeedToKnow({ collectionName }: Props) {
+  const [faqData, setFaqData] = useState<FAQItem[]>([]);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  useEffect(() => {
+    const fetchFAQ = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, collectionName));
+        const data: FAQItem[] = querySnapshot.docs.map(doc => doc.data() as FAQItem);
+        setFaqData(data);
+      } catch (error) {
+        console.error("Error fetching FAQ data:", error);
+      }
+    };
+
+    fetchFAQ();
+  }, [collectionName]); // refetch when the prop changes
 
   const toggleItem = (index: number) => {
     setOpenIndex((prev) => (prev === index ? null : index));
@@ -21,16 +39,14 @@ export default function EverythingNeedToKnow({ faqData }: Props) {
   return (
     <div className="bg-black text-white px-4 py-12 md:px-20 lg:px-32">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-20 items-start max-w-6xl mx-auto">
-        {/* LEFT COLUMN - HEADING */}
         <div className="min-h-full">
           <h2 className="text-[32px] md:text-[40px] lg:text-[48px] font-bold leading-tight text-[#E2E2E2] max-w-sm lg:top-6 sticky top-5 self-start">
             Everything You Need to Know
           </h2>
         </div>
 
-        {/* RIGHT COLUMN - ACCORDION */}
         <div className="divide-y divide-gray-700 w-full">
-          {faqData?.map((item, index) => (
+          {faqData.map((item, index) => (
             <div key={index} className="py-4 mt-5">
               <button
                 className="flex justify-between items-center w-full text-left focus:outline-none"
@@ -50,9 +66,7 @@ export default function EverythingNeedToKnow({ faqData }: Props) {
 
               <div
                 className={`overflow-hidden transition-all duration-300 ${
-                  openIndex === index
-                    ? 'max-h-96 opacity-100 mt-2'
-                    : 'max-h-0 opacity-0'
+                  openIndex === index ? 'max-h-96 opacity-100 mt-2' : 'max-h-0 opacity-0'
                 }`}
               >
                 <p className="text-[16px] mt-5 md:text-[18px] text-[#ABABAB]">

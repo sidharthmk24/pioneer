@@ -20,7 +20,6 @@ import React from 'react'
 import { faqData } from '../utils/FaqData/FaqData'
 import DriveSmarter from '@/components/HomepageComponents/DriveSmarter/DriveSmarter'
 import HdrRecording from '@/components/Page1Components/HdrRecording/HdrRecording'
-import RightFieldOfView from '@/components/Page4Components/RightFieldOfView/RightFieldOfView'
 import { defaultProducts } from '../utils/ProductData/ProductData'
 
 const page = () => {
@@ -28,20 +27,38 @@ const page = () => {
         <>
             <section>
                 <HeroSection
-                    heading="Compact Design That Stays Out of the Way"
-                    subheading="VREC‑H120SC is a compact dash cam that captures clear 1.5K footage while staying out of the way."
+                    heading="Every Drive Backed by Proof"
+                    subheading="The VREC‑H320SC combines real-time driver alerts with built-in G Sensor for emergency recording."
                 />
             </section>
             <section>
                 <VideoResolution
 
-                    highlightedText="Sharper Footage in Any Light"
-                    heading="1.5K Recording with WDR"
-                    subheading=" The VREC-H120SC captures clear, steady video in all kinds of light, combining 1.5K resolution with smart brightness control for better visibility day and night.(Resolution can be enabled through the ZenVue app.)"
+                    highlightedText="Precision in Motion"
+                    heading="Full HD Recording"
+                    subheading=" The front camera records in crisp 1080p, giving you sharp visuals for everyday drives, traffic incidents or unexpected moments."
                 />
             </section>
+            <section>
+                <GSensor
+                    style='flex items-end sm:items-center justify-center sm:justify-end'
 
 
+                    highlightedText='Automatic Event Recording'
+                    heading='Built-in G-Sensor'
+                    subheading='Stay protected with built-in G-sensor technology that automatically locks important footage during emergencies.'
+
+                />
+            </section>
+            <section>
+                <DynamicContent
+                    style="flex-col items-center justify-end sm:items-start sm:justify-center"
+                    highlightedText='Sharp On-Screen Clarity'
+                    heading='3.2" IPS Display'
+                    subheading="The 8.1 cm built-in screen lets you review footage and adjust settings with sharp detail, all without taking up space on your dash."
+
+                />
+            </section>
 
             <section>
                 <HdrRecording
@@ -68,46 +85,27 @@ const page = () => {
                 />
             </section>
             <section>
-                <RightFieldOfView
-                
+                <FieldOfVision
 
 
-                    highlightedText="A minimal build that delivers maximum road coverage"
-                    heading="120° Field of View"
-                    subheading="Whether a bike cuts in from the side or something happens just outside your lane, this lens captures it. Designed to record the bigger picture without needing a bulky setup."
+                    highlightedText="See More Than Just the Lane Ahead"
+                    heading="139° Wide-Angle Lens"
+                    subheading="Captures multiple lanes and surrounding details, giving you a broader view of every situation on the road."
 
-
-                />
-            </section>
-
-            <section>
-                <DynamicContent
-                    style="flex-col items-center justify-end sm:items-start sm:justify-center"
-                    highlightedText='Store More Footage with Ease'
-                    heading='Supports up to 128GB microSD'
-                    subheading="Gives you the space to record and save more of your drives without worrying about running out of memory."
 
                 />
             </section>
 
 
 
-            <section>
-                <GSensor
-                style='flex items-end sm:items-end justify-center sm:justify-center'
 
-                    highlightedText='Automatic Event Recording'
-                    heading='Built-in G-Sensor'
-                    subheading='Stay protected with built-in G-sensor technology that automatically locks important footage during emergencies.'
-
-                />
-            </section>
 
 
 
             <section>
                 <OptionalParking
-                style='flex flex-col items-center sm:items-end justify-center sm:justify-center'
+                    style='flex flex-col items-center sm:items-start justify-center sm:justify-center'
+
                     highlightedText='Stay Secure While Parked'
                     heading='Optional Parking Mode'
                     subheading='Parking mode requires additional installation of an external Hardwire Kit, which enables power supply to the Dash Camera directly from the vehicle battery.'
@@ -179,10 +177,7 @@ const page = () => {
 
             </section>
 
-
-
-
-            {/* <section>
+            <section>
                 <GpsLogger
 
                     highlightedText='Every Trip Logged'
@@ -191,12 +186,7 @@ const page = () => {
                     description='*Disclaimer: Route tracking is available only for footage downloaded to the user’s mobile device via the app. An active internet connection is required to display route details on the map.'
 
                 />
-            </section> */}
-
-
-
-       
-
+            </section>
 
             <section>
 
@@ -204,33 +194,33 @@ const page = () => {
 
                     tabs={[
                         {
-                            tabtitle: "Need something compact?",
+                            tabtitle: "Want Driving Alerts?",
 
-                            heading: "Designed to Keep Things Simple ",
-                            subheading: "The VREC-H120SC is built for simplicity with a clean design, Full HD clarity and essential features that fit into any drive, without getting in the way.",
-                            compareHeading: "A Compact Fit for Every Drive",
-                            compareSubheading: "This model fits neatly into your windshield space without blocking your view. A clean look with no distractions, just smart recording.",
+                            heading: "Get More from Your Daily Drive",
+                            subheading: "The VREC-H320SC adds smart driving support, automatic event recording and clear video built for real road conditions.",
+                            compareHeading: "Helps You Focus on the Drive",
+                            compareSubheading: "Built-in alerts respond to sudden shifts and lane drifts, giving you a second set of eyes when the road gets busy.",
                             image1: "/images/GLOW_BEFORE.webp",
                             image2: "/images/GLOW_AFTER.webp",
 
                         },
                         {
-                            tabtitle: "First dashcam?",
+                            tabtitle: "Prefer Auto Recording?",
 
-                            heading: "Designed to Keep Things Simple ",
-                            subheading: "The VREC-H120SC is built for simplicity with a clean design, Full HD clarity and essential features that fit into any drive, without getting in the way.",
-                            compareHeading: "Built for Beginners",
-                            compareSubheading: "The VREC-H120SC keeps things simple with clear recording and no complicated setup, making it ideal if you're new to dashcams.",
+                            heading: "Get More from Your Daily Drive",
+                            subheading: "The VREC-H320SC adds smart driving support, automatic event recording and clear video built for real road conditions.",
+                            compareHeading: "Always Ready to Record",
+                            compareSubheading: "When motion or impact is detected, the VREC-320SC begins recording automatically. With parking mode enabled, it helps to capture unexpected incidents even while your car is parked.",
                             image1: "/images/NOISE_BEFORE.webp",
                             image2: "/images/NOISE_AFTER.webp",
                         },
                         {
 
-                            tabtitle: "Want a simple setup? ",
-                            heading: "Designed to Keep Things Simple ",
-                            subheading: "The VREC-H120SC is built for simplicity with a clean design, Full HD clarity and essential features that fit into any drive, without getting in the way.",
-                            compareHeading: "Clarity in a minimal design ",
-                            compareSubheading: "The VREC-H120SC records in 1296p with a 2MP sensor, giving you sharper footage that makes it easier to read plates, spot signs and review details when it matters.",
+                            tabtitle: "Need Clear Footage?  ",
+                            heading: "Get More from Your Daily Drive",
+                            subheading: "The VREC-H320SC adds smart driving support, automatic event recording and clear video built for real road conditions.",
+                            compareHeading: "Built for Shifting Light Conditions",
+                            compareSubheading: "From harsh sunlight to shaded corners, WDR and Full HD work together to keep your video balanced and clear.",
                             image2: "/images/CarBroken.png",
                             image1: "/images/page1Images/frontCamera2.webp",
                         }
@@ -246,12 +236,14 @@ const page = () => {
             </section>
             <section>
                 <ProductFeatureTable
-                      products={defaultProducts}
-                                  priorityProductIndex={3}
+
+                    products={defaultProducts}
+                    priorityProductIndex={2}
                 />
             </section>
             <section>
                 <EverythingNeedToKnow
+                   collectionName="faq_detailed_specs_H320SC"
 
                     faqData={faqData.set3}
                 />
@@ -260,8 +252,8 @@ const page = () => {
             <section>
                 <DriveSmarter
 
-                    subText="Drive with confidence, capture every moment, & stay protected. Explore what the H120SC brings to every drive."
-                    image="/images/modelImages/H120SC1.png"
+                    subText="Drive with confidence, capture every moment, & stay protected. Explore what the H320SC brings to every drive."
+                    image="/images/modelImages/H320SC1.png"
                 />
             </section>
 

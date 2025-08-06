@@ -20,35 +20,50 @@ interface HeaderProps {
 export default function Header({ onSaveClick,selectedModel,modelName,onToggleSidebar }: HeaderProps) {
   return (
     <>
-      {/* Header (full width, no padding) */}
-    <div className="flex justify-between items-center py-6 px-12 w-full border-gray-700">
-      <div className="text-gray-400 text-sm breadcrumbs relative flex flex-row gap-2">
-        <span className="mr-2" onClick={onToggleSidebar}>
-          <Image className="w-[34px] h-[24px]" src={dashIcon} alt="" width={100} height={100} />
-        </span>
-        <h1 className="text-[#313131]">|</h1>
-        <span className="mr-2">
-          <Image className="w-[34px] h-[24px]" src={editIcon} alt="" width={100} height={100} />
-        </span>
-        <span>
-          <ChevronRight className="h-6 w-4 text-[#313131]" />
-        </span>
-        <span className="font-medium text-[18px] text-[#FFFFFF]">{modelName}</span>
+       {/* Responsive Header */}
+      <div className="flex flex-wrap justify-between items-center py-4 px-4 sm:px-6 md:px-12 w-full border-gray-700 gap-y-4">
+        {/* Breadcrumbs */}
+        <div className="flex flex-wrap items-center gap-2 text-gray-400 text-sm">
+          <span className="mr-1 cursor-pointer" onClick={onToggleSidebar}>
+            <Image
+              className="w-6 h-auto md:w-[34px]"
+              src={dashIcon}
+              alt="Dashboard Icon"
+              width={100}
+              height={100}
+            />
+          </span>
+          <span className="text-[#313131] hidden sm:inline">|</span>
+          <span className="mr-1">
+            <Image
+              className="w-6 h-auto md:w-[34px]"
+              src={editIcon}
+              alt="Edit Icon"
+              width={100}
+              height={100}
+            />
+          </span>
+          <span>
+            <ChevronRight className="h-5 w-4 text-[#313131]" />
+          </span>
+          <span className="font-medium text-base sm:text-lg text-white break-words">
+            {modelName}
+          </span>
+        </div>
+
+        {/* Save Button */}
+        <button
+          onClick={onSaveClick}
+          className="bg-[#AD2239]/80 hover:bg-red-700/60 transition text-white text-sm sm:text-base px-2 py-2 rounded-lg"
+        >
+          Save Changes
+        </button>
       </div>
 
-      {/* Save Button */}
-      <button
-        onClick={onSaveClick}
-        className="bg-[#AD2239]/80 hover:bg-red-700/60 transition text-white px-4 py-2 rounded-lg"
-      >
-        Save Changes
-      </button>
-    </div>
-
-    {/* Underline with side padding */}
-    <div className="px-8">
-      <div className="border-t border-[#1F1F1F] w-full mb-6 mt-[-5px]"></div>
-    </div>
+      {/* Underline Divider */}
+      <div className="px-4 sm:px-6 md:px-8">
+        <div className="border-t border-[#1F1F1F] w-full mb-6 mt-[-5px]"></div>
+      </div>
     </>
 
     

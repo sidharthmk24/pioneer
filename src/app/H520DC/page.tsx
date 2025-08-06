@@ -123,7 +123,7 @@ const page = () => {
             </section>
             <section>
                 <OptionalParking
-                                style='flex flex-col items-center sm:items-start justify-center sm:justify-center'
+                    style='flex flex-col items-center sm:items-start justify-center sm:justify-center'
 
                     highlightedText='Stay Secure While Parked'
                     heading='Optional Parking Mode'
@@ -192,13 +192,14 @@ const page = () => {
             </section>
             <section>
                 <ProductFeatureTable
-                
+
 
                     products={defaultProducts}
                     priorityProductIndex={1}
                 />            </section>
             <section>
                 <EverythingNeedToKnow
+                   collectionName="faq_detailed_specs_H520DC"
 
                     faqData={faqData.set2}
                 />

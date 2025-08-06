@@ -49,7 +49,7 @@ const page = () => {
 
                     highlightedText="Details Stay Intact"
                     heading="4K Video Resolution"
-                    subheading="The VREC-Z820DC records in true 4K, producing sharp video that makes plates, signs and unexpected moments easy to identify when needed."/>
+                    subheading="The VREC-Z820DC records in true 4K, producing sharp video that makes plates, signs and unexpected moments easy to identify when needed." />
             </section>
             <section>
                 <SharpVision
@@ -61,7 +61,7 @@ const page = () => {
             </section>
             <section>
                 <DynamicContent
-style="flex-col items-center justify-end sm:items-start sm:justify-center"
+                    style="flex-col items-center justify-end sm:items-start sm:justify-center"
                     highlightedText='Sharp On-Screen Clarity'
                     heading='3.2" IPS Display'
                     subheading="The 8.1 cm built-in screen lets you review footage and adjust settings with sharp detail, all without taking up space on your dash."
@@ -70,13 +70,13 @@ style="flex-col items-center justify-end sm:items-start sm:justify-center"
             </section>
             <section>
             </section>
-                <HdrRecording
+            <HdrRecording
 
-                    highlightedText='Adapts to Any Light'
-                    heading='WDR & HDR Recording'
-                    subheading='It adjusts exposure in real time, preserving visibility and fine detail, so footage stays clear in both bright and low-light conditions.'
+                highlightedText='Adapts to Any Light'
+                heading='WDR & HDR Recording'
+                subheading='It adjusts exposure in real time, preserving visibility and fine detail, so footage stays clear in both bright and low-light conditions.'
 
-                />
+            />
 
 
             <section>
@@ -117,7 +117,7 @@ style="flex-col items-center justify-end sm:items-start sm:justify-center"
             </section>
             <section>
                 <OptionalParking
-                                style='flex flex-col items-center sm:items-start justify-center sm:justify-center'
+                    style='flex flex-col items-center sm:items-start justify-center sm:justify-center'
 
                     highlightedText='Monitors While You’re Away'
                     heading='Optional Parking Mode'
@@ -182,15 +182,15 @@ style="flex-col items-center justify-end sm:items-start sm:justify-center"
                 <ZenVue />
             </section>
             <section>
-                <ProductFeatureTable 
-                
-                 products={defaultProducts}
-  priorityProductIndex={0}
+                <ProductFeatureTable
+
+                    products={defaultProducts}
+                    priorityProductIndex={0}
                 />
             </section>
             <section>
                 <EverythingNeedToKnow
-
+                   collectionName="faq_detailed_specs_Z820DC"
                     faqData={faqData.set1}
                 />
             </section>
