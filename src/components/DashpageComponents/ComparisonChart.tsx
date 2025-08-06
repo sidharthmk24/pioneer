@@ -88,7 +88,7 @@ export default function ComparisonChart({ onSaveRegister }: ComparisonChartProps
       </div>
 
       {isOpen && (
-        <div className="px-4 md:px-22 pb-8">
+        <div className="px- md:px-9 pb-8">
           <div className="flex justify-between mb-4">
             <p className="text-[#ABABAB] text-[18px]">
               Edit the text in the fields below and click 'Save' to update the website.
@@ -111,11 +111,11 @@ export default function ComparisonChart({ onSaveRegister }: ComparisonChartProps
             <table className="w-full border border-gray-600/30 rounded-lg">
               <thead>
                 <tr>
-                  <th className="px-6 py-4 border border-gray-600/30 text-left text-[#ABABAB] text-[20px]">Feature</th>
-                  <th className="px-6 py-4 border border-gray-600/30 text-center text-[#ABABAB] text-[20px]">VREC - Z820DC</th>
-                  <th className="px-6 py-4 border border-gray-600/30 text-center text-[#ABABAB] text-[20px]">VREC - H520DC</th>
-                  <th className="px-6 py-4 border border-gray-600/30 text-center text-[#ABABAB] text-[20px]">VREC - H320SC</th>
-                  <th className="px-6 py-4 border border-gray-600/30 text-center text-[#ABABAB] text-[20px]">VREC - H120SC</th>
+                  <th className="px-6 py-4 border border-gray-600/30 text-left text-white text-[18px]"></th>
+                  <th className="px-6 py-4 border border-gray-600/30 text-center text-white text-[16px]">VREC - Z820DC</th>
+                  <th className="px-6 py-4 border border-gray-600/30 text-center text-white text-[16px]">VREC - H520DC</th>
+                  <th className="px-6 py-4 border border-gray-600/30 text-center text-white text-[16px]">VREC - H320SC</th>
+                  <th className="px-6 py-4 border border-gray-600/30 text-center text-white text-[16px]">VREC - H120SC</th>
                 </tr>
               </thead>
               <tbody>
@@ -133,12 +133,11 @@ export default function ComparisonChart({ onSaveRegister }: ComparisonChartProps
                       {['feature', 'Z820DC', 'H520DC', 'H320SC', 'H120SC'].map((field) => (
                         <td
                           key={field}
-                          className="px-4 py-9   w-[240px] border-r border-gray-600/30 text-center"
+                          className="px-4 py-9 w-[240px] border-r border-gray-600/30 text-center align-top break-words whitespace-normal"
                         >
-                          <input
-                            type="text"
-                            className="w-full bg-transparent text-white text-center  border-transparent focus:outline-none focus:border-gray-500"
-                            value={row[field as keyof Omit<ComparisonData, 'id'>] || ''}
+                          <textarea
+                            className="w-full scrollbar-hide bg-transparent text-white text-center border-transparent focus:outline-none focus:border-gray-500 resize-none break-words whitespace-normal"
+                            value={row[field as keyof Omit<ComparisonData, 'id'>] || '-'}
                             onChange={(e) => {
                               const newData = [...comparisonData];
                               newData[rowIndex] = {

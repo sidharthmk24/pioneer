@@ -9,9 +9,11 @@ import RetailerHyperlinks from './RetailerHyperlinks';
 interface DashboardMainProps {
   saveTrigger: number;
   selectedModel: string; // ✅ NEW
+  modelName:string
+  
 }
 
-export default function DashboardMain({ saveTrigger, selectedModel }: DashboardMainProps) {
+export default function DashboardMain({ saveTrigger, selectedModel,modelName }: DashboardMainProps) {
   const [comparisonSaveFn, setComparisonSaveFn] = useState<() => void>(() => () => { });
   const [detailedSpecSaveFn, setDetailedSpecSaveFn] = useState<() => void>(() => () => { });
   const [faqSaveFn, setFaqSaveFn] = useState<() => void>(() => () => { });
@@ -39,6 +41,7 @@ export default function DashboardMain({ saveTrigger, selectedModel }: DashboardM
 
 
       <DetailedSpec
+       modelName={modelName}
         selectedCollection={selectedModel}
         onSaveRegister={(fn) => setDetailedSpecSaveFn(() => fn)}
 

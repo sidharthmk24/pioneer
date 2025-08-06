@@ -140,15 +140,15 @@ useEffect(() => {
     {/* Header row: FAQ ID and Show/Hide */}
    <div className="flex justify-between items-center mb-6">
   <span className="text-white text-[13px] font-semibold">FAQ #{index + 1}</span>
-  <div className="flex gap-2">
+  <div className="flex gap-0">
     <button
       onClick={() => {
         const updated = [...faqsData];
         updated[index].isVisible = true;
         setFaqsData(updated);
       }}
-      className={`px-3 py-[2px] text-[10px] font-semibold uppercase tracking-[0.05em] rounded-sm transition-colors border border-[#444] ${
-        faq.isVisible ? 'bg-white text-black' : 'text-white/50'
+      className={`px-3 py-[2px]  text-[12px] font-medium  uppercase tracking-[0.05em] rounded-sm transition-colors border border-[#444] ${
+        faq.isVisible ? 'bg-[#ABABAB] text-black' : 'text-white/50'
       }`}
     >
       Show
@@ -159,8 +159,8 @@ useEffect(() => {
         updated[index].isVisible = false;
         setFaqsData(updated);
       }}
-      className={`px-3 py-[2px] text-[10px] font-semibold uppercase tracking-[0.05em] rounded-sm transition-colors border border-[#444] ${
-        !faq.isVisible ? 'bg-white text-black' : 'text-white/50'
+      className={`px-3 py-[2px]  text-[12px] font-medium uppercase tracking-[0.05em] rounded-sm transition-colors border border-[#444] ${
+        !faq.isVisible ? 'bg-[#ABABAB] text-black' : 'text-white/50'
       }`}
     >
       Hide
@@ -176,7 +176,7 @@ useEffect(() => {
       <label className="col-span-2 text-[#ABABAB] text-sm">Heading</label>
       <input
         type="text"
-        className="col-span-10 border border-gray-700/50 rounded px-4 py-2 text-white bg-transparent w-full focus:outline-none focus:ring focus:border-gray-500"
+        className="col-span-10 scrollbar-hide border border-gray-700/50 rounded px-4 py-2 text-white bg-transparent w-full focus:outline-none focus:ring focus:border-gray-500"
         value={faq.question}
         onChange={(e) => handleChange(index, 'question', e.target.value)}
         placeholder="Enter heading here"
@@ -187,7 +187,7 @@ useEffect(() => {
     <div className="grid grid-cols-12 items-start gap-4">
       <label className="col-span-2 text-[#ABABAB] text-sm mt-2">Description</label>
       <textarea
-        className="col-span-10 border border-gray-700/50 rounded px-4 py-3 text-[#ABABAB] bg-transparent w-full focus:outline-none focus:ring focus:border-gray-500"
+        className="col-span-10 scrollbar-hide border border-gray-700/50 rounded px-4 py-3 text-[#ABABAB] bg-transparent w-full focus:outline-none focus:ring focus:border-gray-500"
         value={faq.answer}
         rows={3}
         onChange={(e) => handleChange(index, 'answer', e.target.value)}

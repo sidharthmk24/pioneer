@@ -5,35 +5,25 @@ import { db } from '@/app/utils/Firebase/firebaseConfig';
 
 export default function page() {
   const faqs = [
-{
-    question: "What resolution does the VREC-H120SC record in?",
-    answer: "It records in high-resolution 1.5K (1296P), capturing clear and detailed footage of your drive."
-  },
-  {
-    question: "Is the VREC-H120SC easy to install?",
-    answer: "Yes, its compact design and simple adhesive mount make installation quick and unobtrusive—ideal for first-time dashcam users."
-  },
-  {
-    question: "Does it support Parking Mode?",
-    answer: "Yes, the VREC-H120SC includes Parking Mode for motion and impact detection while parked.\n\nDisclaimer: This feature is available only with additional setup and components."
-  },
-  {
-    question: "What is the field of view on this model?",
-    answer: "It offers a 120° wide-angle view, providing solid front-road coverage while maintaining focus and clarity."
-  },
-  {
-    question: "Can I expand the storage?",
-    answer: "Yes, it supports microSD™ cards up to 128 GB (Class 10 or higher recommended) for continuous loop recording and event capture."
-  },
-  {
-    question: "Is this a single or dual camera setup?",
-    answer: "The VREC-H120SC is a single front-facing camera, optimized for simplicity, clarity, and compact installation."
-  }
-
-  ];
+ { feature: 'Resolution', value: '2K, HDR + Full HD' },
+  { feature: 'Power supply', value: '5V, 2A Cigarette Charger or Hardwire Kit' },
+  { feature: 'G sensor', value: 'Yes' },
+  { feature: 'Storage', value: 'Micro SD card (Up to 512GB)' },
+  { feature: 'Dimensions', value: '88mm x 29.3mm x 55.6mm' },
+  { feature: 'Viewing Angle', value: '143° Diagonal' },
+  { feature: 'Image Sensor', value: 'Sony STARVIS 2 IMX675, 5MP' },
+  { feature: 'No of Cameras', value: '2 (front + rear)' },
+  { feature: 'Mounting', value: 'Double Sided Adhesive' },
+  { feature: 'Display Size', value: '3" IPS' },
+  { feature: 'GPS', value: 'Inbuilt' },
+  { feature: 'Wi-Fi', value: 'Inbuilt' },
+  { feature: 'Parking Mode', value: 'Yes' },
+  { feature: 'Smartphone App', value: 'Android + iOS' },
+  { feature: 'Advanced Driver-Assistance System (ADAS)', value: 'FCWS, LDWS, Stop and Go' }
+];
 
   const handleUpload = async () => {
-    const collectionName = 'faq_detailed_specs_H520DC';
+    const collectionName = 'detailed_specs_H520DC';
     console.log('Uploading FAQs to:', collectionName);
 
     try {

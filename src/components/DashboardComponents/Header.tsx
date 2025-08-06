@@ -39,7 +39,7 @@ export default function Header({ onSaveClick,selectedModel,modelName,onToggleSid
       {/* Save Button */}
       <button
         onClick={onSaveClick}
-        className="bg-[#AD2239] hover:bg-red-700 text-white px-4 py-2 rounded-lg"
+        className="bg-[#AD2239]/80 hover:bg-red-700/60 transition text-white px-4 py-2 rounded-lg"
       >
         Save Changes
       </button>
@@ -47,7 +47,7 @@ export default function Header({ onSaveClick,selectedModel,modelName,onToggleSid
 
     {/* Underline with side padding */}
     <div className="px-8">
-      <div className="border-t border-[#1F1F1F] w-full mb-6"></div>
+      <div className="border-t border-[#1F1F1F] w-full mb-6 mt-[-5px]"></div>
     </div>
     </>
 

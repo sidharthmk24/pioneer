@@ -5,6 +5,7 @@ import { ChevronUp, ChevronDown, Plus } from 'lucide-react';
 import { db } from '../../app/utils/Firebase/firebaseConfig';
 import DetailedSpecsModal from './Modals/DetailedSpecsModal';
 import { updateDoc, doc } from 'firebase/firestore';
+import { models } from '@/lib/models';
 
 interface SpecData {
   id: string;
@@ -14,10 +15,12 @@ interface SpecData {
 
 interface DetailedSpecProps {
   onSaveRegister: (fn: () => void) => void;
+    modelName: string;
+    selectedCollection:string
 }
 
 
-export default function DetailedSpec({ onSaveRegister,selectedCollection }: { onSaveRegister: (fn: () => void) => void ;selectedCollection:string}) {
+export default function DetailedSpec({ onSaveRegister,selectedCollection, modelName }:DetailedSpecProps ) {
 
 console.log(selectedCollection);
 
@@ -31,6 +34,7 @@ console.log(selectedCollection);
 
     useEffect(() => {
     onSaveRegister(saveChanges);
+    
   }, [specsData]);
   
 
@@ -173,7 +177,11 @@ console.log("Rendering specsData:", specsData); // ✅ Safe here
                         save changes
                       </button> */}
                    </div>
-        <div className="px-4 md:px-22 pb-8">
+
+        <div className="px-4 md:px-7 pb-8">
+                                               <span className="font-medium text-[15px] font-semibold ms-3 text-[#FFFFFF py-12">{modelName}</span>
+
+
           {error && (
             <div className="mb-4 p-3 bg-red-900/20 border border-red-700/50 rounded text-red-300">
               {error}

@@ -245,12 +245,12 @@ useEffect(() => {
           </button>
 
           {/* Save Button (optional) */}
-          <button
+          {/* <button
             onClick={saveRetailers}
             className="w-full border border-green-700 text-white py-3 mt-4 hover:bg-green-900 text-center"
           >
             SAVE CHANGES
-          </button>
+          </button> */}
         </div>
       )}
     </div>

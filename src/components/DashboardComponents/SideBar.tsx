@@ -33,7 +33,7 @@ export default function SideBar({ selectedModel, onSelectModel }: SideBarProps) 
   // ];
 
   return (
-    <aside className="bg-[#0D0D0D] text-white w-[230px] h-screen flex flex-col justify-between py-8 px-4 border-r border-[#1F1F1F]">
+    <aside className="bg-[#0D0D0D] text-white w-[230px] h-full flex flex-col justify-between py-8 px-4 border-r border-[#1F1F1F]">
       <div>
         {/* Logo */}
         <div className="flex justify-center mb-8">
@@ -59,7 +59,7 @@ export default function SideBar({ selectedModel, onSelectModel }: SideBarProps) 
             <li
               key={i}
          onClick={() => onSelectModel(model.collection,    model.name )}
-            className={`text-[13px] px-3 py-2 rounded font-medium cursor-pointer transition-colors ${
+            className={`text-[15px] px-3 py-2 rounded font-medium cursor-pointer transition-colors ${
   selectedModel === model.collection
     ? "bg-[#AD2239]/30 text-white"
     : "text-[#B3B3B3] hover:bg-[#1A1A1A] hover:text-white"
