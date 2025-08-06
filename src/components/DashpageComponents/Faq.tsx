@@ -120,7 +120,7 @@ useEffect(() => {
             <p className="text-[#ABABAB] text-[16px]">Edit the fields and click 'Save' to update the website</p>
           </div>
 
-          <div className="px-4 md:px-22 pb-8">
+          <div className="px-4 md:px-4 pb-8">
             {error && (
               <div className="mb-4 p-3 bg-red-900/20 border border-red-700/50 rounded text-red-300">
                 {error}
@@ -139,7 +139,7 @@ useEffect(() => {
   >
     {/* Header row: FAQ ID and Show/Hide */}
    <div className="flex justify-between items-center mb-6">
-  <span className="text-white text-[13px] font-semibold">FAQ #{index + 1}</span>
+  <span className="text-white text-[15px] font-semibold">FAQ #{index + 1}</span>
   <div className="flex gap-0">
     <button
       onClick={() => {
