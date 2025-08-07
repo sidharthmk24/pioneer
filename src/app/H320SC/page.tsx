@@ -237,7 +237,7 @@ const page = () => {
             <section>
                 <ProductFeatureTable
 
-                    products={defaultProducts}
+                    // products={defaultProducts}
                     priorityProductIndex={2}
                 />
             </section>
@@ -245,7 +245,7 @@ const page = () => {
                 <EverythingNeedToKnow
                    collectionName="faq_detailed_specs_H320SC"
 
-                    faqData={faqData.set3}
+                    // faqData={faqData.set3}
                 />
             </section>
 

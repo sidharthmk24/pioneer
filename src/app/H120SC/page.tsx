@@ -24,6 +24,12 @@ import RightFieldOfView from '@/components/Page4Components/RightFieldOfView/Righ
 import { defaultProducts } from '../utils/ProductData/ProductData'
 
 const page = () => {
+
+
+
+
+
+    
     return (
         <>
             <section>
@@ -246,7 +252,7 @@ const page = () => {
             </section>
             <section>
                 <ProductFeatureTable
-                    products={defaultProducts}
+                    // products={defaultProducts}
                     priorityProductIndex={3}
                 />
             </section>
