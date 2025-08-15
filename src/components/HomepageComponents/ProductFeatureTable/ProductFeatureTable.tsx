@@ -39,22 +39,22 @@ export default function ProductFeatureTable({
 
   // Model keys matching Firestore field names
   const modelKeys = reorderedProducts.map((product) => {
-    const match = product.name.match(/VREC\s*-\s*(\w+)/);
+    const match = product.name.match(/\s*-\s*(\w+)/);
     return match ? match[1] : ""; // e.g., "Z820DC"
   });
   return (
     <section className="text-white px-4 md:px-8 py-20 max-w-6xl xl:max-w-[90%] mx-auto mt-20">
-      <div className="max-w-7xl mx-auto text-center mb-16">
-        <h2 className="text-center text-[48px] font-medium tracking-wide mb-2">
+      <div className="max-w-7xl mx-auto text-center mb-18">
+        <h2 className="text-center text-[27px] md:text-[48px] font-medium tracking-wide mb-2">
           Which One’s Built for You?
         </h2>
-        <p className="text-[#ABABAB]/80 text-sm md:text-base">
+        <p className="text-[#ABABAB]/80 text-xs md:text-sm ">
           Compare the key features across each model
         </p>
       </div>
 
       <div className="overflow-x-auto">
-        <div className="min-w-[800px] grid grid-cols-[200px_repeat(4,minmax(150px,1fr))] gap-x-6 text-left">
+        <div className="min-w-[1000px] grid grid-cols-[200px_repeat(4,minmax(150px,1fr))] sm:gap-x-15 gap-x-10 text-left">
           {/* Product Headers with Image */}
           <div />
           {reorderedProducts.map((product, i) => (
@@ -84,7 +84,7 @@ export default function ProductFeatureTable({
           {/* Features from Firestore */}
           {featureRows.map((row, rowIndex) => (
             <React.Fragment key={rowIndex}>
-              <div className="py-6 text-[20px] font-bold">{row.feature}</div>
+              <div className="py-6 text-[20px] font-semibold">{row.feature}</div>
               {modelKeys.map((modelKey, colIndex) => (
                 <div
                   key={colIndex}
@@ -98,11 +98,11 @@ export default function ProductFeatureTable({
         </div>
       </div>
 
-<SpecsModal
-  isOpen={open}
-  onClose={() => setOpen(false)}
-  modelKey={modelKeys[0]} // 👈 Use first (priority) model's key
-/>
+      <SpecsModal
+        isOpen={open}
+        onClose={() => setOpen(false)}
+        modelKey={modelKeys[1]} // 👈 Use first (priority) model's key
+      />
 
       <div className="modal py-12 flex items-center justify-center">
         <button

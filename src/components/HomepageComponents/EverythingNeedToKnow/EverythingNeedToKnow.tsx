@@ -8,6 +8,7 @@ import { db } from '../../../app/utils/Firebase/firebaseConfig' // adjust the pa
 type FAQItem = {
   question: string;
   answer: string;
+  disclaimer?:string
 };
 
 type Props = {
@@ -40,7 +41,7 @@ export default function EverythingNeedToKnow({ collectionName }: Props) {
     <div className="bg-black text-white px-4 py-12 md:px-20 lg:px-32">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-20 items-start max-w-6xl mx-auto">
         <div className="min-h-full">
-          <h2 className="text-[32px] md:text-[40px] lg:text-[48px] font-bold leading-tight text-[#E2E2E2] max-w-sm lg:top-6 sticky top-5 self-start">
+          <h2 className="text-[32px] md:text-[40px] text-center lg:text-[48px] font-bold leading-tight text-[#E2E2E2] max-w-sm lg:top-6 sticky top-5 self-start">
             Everything You Need to Know
           </h2>
         </div>
@@ -52,7 +53,7 @@ export default function EverythingNeedToKnow({ collectionName }: Props) {
                 className="flex justify-between items-center w-full text-left focus:outline-none"
                 onClick={() => toggleItem(index)}
               >
-                <span className="text-[18px] md:text-[20px] font-semibold text-[#E2E2E2]">
+                <span className="text-[18px] w-2/3 md:text-[20px] font-semibold text-[#E2E2E2]">
                   {item.question}
                 </span>
                 <span className="ml-4">
@@ -72,6 +73,11 @@ export default function EverythingNeedToKnow({ collectionName }: Props) {
                 <p className="text-[16px] mt-5 md:text-[18px] text-[#ABABAB]">
                   {item.answer}
                 </p>
+                 {item.disclaimer&&(
+                   <p className="text-[11px] mt-5 md:text-[12px] tracking-wide text-[#ABABAB]">
+                    Disclaimer:  {item.disclaimer}
+                </p>
+                 )}
               </div>
             </div>
           ))}

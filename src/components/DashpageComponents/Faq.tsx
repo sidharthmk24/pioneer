@@ -10,6 +10,7 @@ interface FaqData {
   id: string;
   question: string;
   answer: string;
+  disclaimer?:string
   isNew?: boolean; // <-- flag to check if not saved yet
  isVisible?: boolean;
 }
@@ -65,6 +66,7 @@ useEffect(() => {
     id: Date.now().toString(), // temporary ID
     question: '',
     answer: '',
+    disclaimer:'',
     isNew: true,
     isVisible: true
   };
@@ -80,7 +82,8 @@ useEffect(() => {
           // New document
          await addDoc(collection(db, collectionName), {
             question: faq.question,
-            answer: faq.answer
+            answer: faq.answer,
+            disclaimer:faq.disclaimer
           });
           console.log(faq.question,"ssss");
           
@@ -88,7 +91,8 @@ useEffect(() => {
           // Existing document
         await updateDoc(doc(db, collectionName, faq.id), {
             question: faq.question,
-            answer: faq.answer
+            answer: faq.answer,
+            disclaimer:faq.disclaimer
           });
         }
       });
@@ -173,7 +177,7 @@ useEffect(() => {
   <div className="flex flex-col gap-6">
     {/* Heading row */}
     <div className="grid grid-cols-12 items-center gap-4">
-      <label className="col-span-2 text-[#ABABAB] text-sm">Heading</label>
+      <label className="col-span-2 text-[#ABABAB] text-sm">Question</label>
       <input
         type="text"
         className="col-span-10 scrollbar-hide border border-gray-700/50 rounded px-4 py-2 text-white bg-transparent w-full focus:outline-none focus:ring focus:border-gray-500"
@@ -185,13 +189,23 @@ useEffect(() => {
 
     {/* Description row */}
     <div className="grid grid-cols-12 items-start gap-4">
-      <label className="col-span-2 text-[#ABABAB] text-sm mt-2">Description</label>
+      <label className="col-span-2 text-[#ABABAB] text-sm mt-2">Answers</label>
       <textarea
         className="col-span-10 scrollbar-hide border border-gray-700/50 rounded px-4 py-3 text-[#ABABAB] bg-transparent w-full focus:outline-none focus:ring focus:border-gray-500"
         value={faq.answer}
         rows={3}
         onChange={(e) => handleChange(index, 'answer', e.target.value)}
         placeholder="Enter description here"
+      />
+    </div>
+       <div className="grid grid-cols-12 items-start gap-4">
+      <label className="col-span-2 text-[#ABABAB] text-sm mt-2">Disclaimer</label>
+      <textarea
+        className="col-span-10 scrollbar-hide border border-gray-700/50 rounded px-4 py-3 text-[#ABABAB] bg-transparent w-full focus:outline-none focus:ring focus:border-gray-500"
+        value={faq.disclaimer}
+        rows={3}
+        onChange={(e) => handleChange(index, 'disclaimer', e.target.value)}
+        placeholder="Enter Disclaimer here"
       />
     </div>
   </div>

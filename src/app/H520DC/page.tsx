@@ -193,10 +193,10 @@ const page = () => {
             <section>
                 <ProductFeatureTable
 
-
+                     
                     // products={defaultProducts}
-                    priorityProductIndex={1}
-                />            </section>
+                    priorityProductIndex={1} />           
+                 </section>
             <section>
                 <EverythingNeedToKnow
                    collectionName="faq_detailed_specs_H520DC"

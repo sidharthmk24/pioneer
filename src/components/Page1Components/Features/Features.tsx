@@ -101,7 +101,7 @@ export default function Features() {
                             alt="Overlay"
                             width={50}
                             height={120}
-                            className="absolute top-57 right-19 z-10 opacity-90"
+                            className="absolute top-53 right-17 z-10 opacity-90"
                           />
                         )}
                       </div>

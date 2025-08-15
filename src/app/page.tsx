@@ -31,7 +31,7 @@ export default function Home() {
         <HdrRecording />
       </section>
 <section>
-  <AnimateDiv/>
+  {/* <AnimateDiv/> */}
 </section>
       <section>
         <DriveAlert />
