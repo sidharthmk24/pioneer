@@ -25,7 +25,7 @@ export default function Faq({ onSaveRegister, collectionName }: FaqProps) {
   const [error, setError] = useState('');
   const [isSaving, setIsSaving] = useState(false);
 
-  useEffect(() => {
+ useEffect(() => {
     if (!collectionName) return;
 
     setLoading(true);
@@ -55,8 +55,7 @@ export default function Faq({ onSaveRegister, collectionName }: FaqProps) {
         setLoading(false);
       }
     );
-
-    return () => unsubscribe();
+ return () => unsubscribe();
   }, [collectionName]);
 
   const handleChange = (index: number, field: keyof FaqData, value: string) => {
@@ -85,8 +84,8 @@ const handleSaveAll = async () => {
           )
         );
       } else {
-        await updateDoc(doc(db, collectionName, faq.id), {
-          question: faq.question,
+          await updateDoc(doc(db, collectionName, faq.id), {
+        question: faq.question,
           answer: faq.answer,
           disclaimer: faq.disclaimer,
         });
@@ -102,6 +101,7 @@ const handleSaveAll = async () => {
     setIsSaving(false);
   }
 };
+
 
 useEffect(() => {
   onSaveRegister(() => handleSaveAll());

@@ -2,10 +2,11 @@
 
 import React, { useEffect, useState } from 'react'
 import { Minus, Plus } from 'lucide-react'
-import { collection, getDocs } from 'firebase/firestore'
+import { collection, getDocs, orderBy, query } from 'firebase/firestore'
 import { db } from '../../../app/utils/Firebase/firebaseConfig' // adjust the path based on your folder structure
 
 type FAQItem = {
+  id: string
   question: string;
   answer: string;
   disclaimer?:string
@@ -18,20 +19,31 @@ type Props = {
 export default function EverythingNeedToKnow({ collectionName }: Props) {
   const [faqData, setFaqData] = useState<FAQItem[]>([]);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  
+useEffect(() => {
+  const fetchFAQ = async () => {
+    try {
+      // Create a query with ordering
+      const q = query(
+        collection(db, collectionName),
+        orderBy("priority", "asc") // change to "desc" for reverse order
+      );
 
-  useEffect(() => {
-    const fetchFAQ = async () => {
-      try {
-        const querySnapshot = await getDocs(collection(db, collectionName));
-        const data: FAQItem[] = querySnapshot.docs.map(doc => doc.data() as FAQItem);
-        setFaqData(data);
-      } catch (error) {
-        console.error("Error fetching FAQ data:", error);
-      }
-    };
+      const querySnapshot = await getDocs(q);
 
-    fetchFAQ();
-  }, [collectionName]); // refetch when the prop changes
+      const data: FAQItem[] = querySnapshot.docs.map((doc) => ({
+        id: doc.id, // keep ID if needed later
+        ...doc.data(),
+      })) as FAQItem[];
+
+      setFaqData(data);
+    } catch (error) {
+      console.error("Error fetching FAQ data:", error);
+    }
+  };
+
+  fetchFAQ();
+}, [collectionName]); // refetch when the prop changes
 
   const toggleItem = (index: number) => {
     setOpenIndex((prev) => (prev === index ? null : index));
