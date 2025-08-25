@@ -29,7 +29,7 @@ export default function SideBar({ selectedModel, onSelectModel }: SideBarProps) 
   //   { name: "VREC-Z820DC", collection: "detailed_specs" },
   //   { name: "VREC-H520DC", collection: "detailed_specs_H520DC" },
   //   { name: "VREC-H320SC", collection: "detailed_specs_H320SC" },
-  //   { name: "VREC-H120DC", collection: "detailed_specs_H120DC" },
+  //   { name: "VREC-H120SC", collection: "detailed_specs_H120SC" },
   // ];
 
   return (

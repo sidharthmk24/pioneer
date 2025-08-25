@@ -10,7 +10,7 @@ interface ComparisonData {
   Z820DC: string;
   H520DC: string;
   H320SC: string;
-  H120DC: string;
+  H120SC: string;
 }
 
 interface ComparisonChartProps {
@@ -115,7 +115,7 @@ export default function ComparisonChart({ onSaveRegister }: ComparisonChartProps
                   <th className="px-6 py-4 border border-gray-600/30 text-center text-white text-[16px]">VREC - Z820DC</th>
                   <th className="px-6 py-4 border border-gray-600/30 text-center text-white text-[16px]">VREC - H520DC</th>
                   <th className="px-6 py-4 border border-gray-600/30 text-center text-white text-[16px]">VREC - H320SC</th>
-                  <th className="px-6 py-4 border border-gray-600/30 text-center text-white text-[16px]">VREC - H120DC</th>
+                  <th className="px-6 py-4 border border-gray-600/30 text-center text-white text-[16px]">VREC - H120SC</th>
                 </tr>
               </thead>
               <tbody>
@@ -130,7 +130,7 @@ export default function ComparisonChart({ onSaveRegister }: ComparisonChartProps
                 ) : (
                   comparisonData.map((row, rowIndex) => (
                     <tr key={row.id} className="hover:bg-[#1A1A1A]/50">
-                      {['feature', 'Z820DC', 'H520DC', 'H320SC', 'H120DC'].map((field) => (
+                      {['feature', 'Z820DC', 'H520DC', 'H320SC', 'H120SC'].map((field) => (
                         <td
                           key={field}
                           className="px-4 py-9 w-[240px] border-r border-gray-600/30 text-center align-top break-words whitespace-normal"

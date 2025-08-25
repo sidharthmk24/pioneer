@@ -8,13 +8,16 @@ import { getStorage } from "firebase/storage";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCP1H_Hdv8ZYXPbX_cJtEYkfgHXBfMrYAI",
-  authDomain: "pioneer-test-3a845.firebaseapp.com",
-  projectId: "pioneer-test-3a845",
-  storageBucket: "pioneer-test-3a845.firebasestorage.app",
-  messagingSenderId: "624279376626",
-  appId: "1:624279376626:web:8c3911a68ffee6eee0f66b"
+  apiKey: "AIzaSyCkVZSxnUFpDpGdEmICd08Vk7oMoMxaisI",
+  authDomain: "dashcam-microsite.firebaseapp.com",
+  projectId: "dashcam-microsite",
+  storageBucket: "dashcam-microsite.firebasestorage.app",
+  messagingSenderId: "956612787679",
+  appId: "1:956612787679:web:b49da7c6f725920767d86a",
+  measurementId: "G-4WT43MR8XQ"
 };
+
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);

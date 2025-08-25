@@ -18,9 +18,9 @@ export const defaultProducts = [
     features: ["Full HD", "-", "Front \n+\n Rear (Optional)", "90mm x 34.8mm\n  x 54.25mm", "Yes", "Yes", "Ideal for Practical\n  Users"],
   },
   {
-    name: "VREC - H120DC",
+    name: "VREC - H120SC",
     image: "/images/modelImages/h120sc.png",
-    link: "/products/vrec-h120dc",
+    link: "/products/vrec-h120sc",
     features: ["1.5K", "-", "Front", "31.12mm x 28.8mm\n  x 37.33mm", "-", "Yes", "Ideal for First-Time\n  Users"],
   },
 ];

@@ -126,11 +126,11 @@ useEffect(() => {
           </div>
 
           <div className="px-4 md:px-4 pb-8">
-            {error && (
+            {/* {error && (
               <div className="mb-4 p-3 bg-red-900/20 border border-red-700/50 rounded text-red-300">
                 {error}
               </div>
-            )}
+            )} */}
 
             {loading ? (
               <div className="text-center text-[#ABABAB] py-8">Loading FAQs...</div>

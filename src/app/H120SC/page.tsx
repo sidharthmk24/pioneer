@@ -258,7 +258,7 @@ const page = () => {
             </section>
             <section>
                 <EverythingNeedToKnow
-                   collectionName="faq_detailed_specs_H120DC"
+                   collectionName="faq_detailed_specs_H120SC"
 
                     // faqData={faqData.set3}
                 />
