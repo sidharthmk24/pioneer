@@ -25,87 +25,89 @@ export default function Faq({ onSaveRegister, collectionName }: FaqProps) {
   const [error, setError] = useState('');
   const [isSaving, setIsSaving] = useState(false);
 
- useEffect(() => {
-    if (!collectionName) return;
+  // 🔹 Load Firestore FAQs
+useEffect(() => {
+  if (!collectionName) return;
 
-    setLoading(true);
-    const q = query(collection(db, collectionName));
+  setLoading(true);
+  const q = query(collection(db, collectionName));
 
-    const unsubscribe = onSnapshot(
-      q,
-      (snapshot) => {
-        const firestoreData = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-          isVisible: true,
+  const unsubscribe = onSnapshot(
+    q,
+    (snapshot) => {
+      const firestoreData = snapshot.docs.map((docSnap) => {
+        const data = docSnap.data() as Omit<FaqData, 'id'>;
+        return {
+          id: docSnap.id,
+          ...data,
           isNew: false,
-        })) as FaqData[];
+          isVisible: data.isVisible ?? true, // 👈 always visible by default
+        };
+      }) as FaqData[];
 
-        // ✅ Merge existing Firestore docs with local unsaved FAQs
-        setFaqsData((prev) => {
-          const unsaved = prev.filter((faq) => faq.isNew);
-          return [...firestoreData, ...unsaved];
-        });
+      setFaqsData(firestoreData);
+      setLoading(false);
+    },
+    (error) => {
+      console.error('Real-time listener error:', error);
+      setError(`Error: ${error.message}`);
+      setLoading(false);
+    }
+  );
+  return () => unsubscribe();
+}, [collectionName]);
 
-        setLoading(false);
-      },
-      (error) => {
-        console.error('Real-time listener error:', error);
-        setError(`Error: ${error.message}`);
-        setLoading(false);
-      }
-    );
- return () => unsubscribe();
-  }, [collectionName]);
-
+  // 🔹 Handle input changes
   const handleChange = (index: number, field: keyof FaqData, value: string) => {
     const updatedFaqs = [...faqsData];
     updatedFaqs[index][field] = value;
     setFaqsData(updatedFaqs);
   };
 
-const handleSaveAll = async () => {
-  setIsSaving(true);
-  try {
-    const updatePromises = faqsData.map(async (faq) => {
-      if (faq.isNew) {
-        const docRef = await addDoc(collection(db, collectionName), {
-          question: faq.question,
-          answer: faq.answer,
-          disclaimer: faq.disclaimer,
-        });
+  // 🔹 Save all FAQs
+  const handleSaveAll = async () => {
+    setIsSaving(true);
+    try {
+      const updatePromises = faqsData.map(async (faq) => {
+        if (faq.isNew) {
+          const docRef = await addDoc(collection(db, collectionName), {
+            question: faq.question ?? '',
+            answer: faq.answer ?? '',
+            disclaimer: faq.disclaimer ?? '',
+            isVisible: faq.isVisible ?? true,
+          });
 
-        console.log('Added new FAQ:', docRef.id);
+          setFaqsData((prev) =>
+            prev.map((f) =>
+              f.id === faq.id ? { ...f, id: docRef.id, isNew: false } : f
+            )
+          );
+        } else {
+          const updateData = {
+            question: faq.question ?? '',
+            answer: faq.answer ?? '',
+            disclaimer: faq.disclaimer ?? '',
+            isVisible: faq.isVisible ?? true,
+          };
+          console.log('Updating doc:', faq.id, updateData);
+          await updateDoc(doc(db, collectionName, faq.id), updateData);
+        }
+      });
 
-        // ✅ Update local state with Firestore ID
-        setFaqsData((prev) =>
-          prev.map((f) =>
-            f.id === faq.id ? { ...f, id: docRef.id, isNew: false } : f
-          )
-        );
-      } else {
-          await updateDoc(doc(db, collectionName, faq.id), {
-        question: faq.question,
-          answer: faq.answer,
-          disclaimer: faq.disclaimer,
-        });
-      }
-    });
+      await Promise.all(updatePromises);
+      console.log('All FAQs updated successfully.');
+    } catch (error: any) {
+      console.error('Error saving FAQs:', error);
+      setError(`Error saving: ${error.message}`);
+    } finally {
+      setIsSaving(false);
+    }
+  };
 
-    await Promise.all(updatePromises);
-    console.log('All FAQs updated successfully.');
-  } catch (error: any) {
-    console.error('Error saving FAQs:', error);
-    setError(`Error saving: ${error.message}`);
-  } finally {
-    setIsSaving(false);
-  }
-};
-
-
-useEffect(() => {
-  onSaveRegister(() => handleSaveAll());
-}, [faqsData, collectionName]);
+  // 🔹 Expose save function to parent
+  useEffect(() => {
+    onSaveRegister(() => handleSaveAll());
+  }, [faqsData, collectionName]);
 
   return (
     <div className="border-b border-gray-700/30 py-1">
@@ -126,11 +128,11 @@ useEffect(() => {
           </div>
 
           <div className="px-4 md:px-4 pb-8">
-            {/* {error && (
+            {error && (
               <div className="mb-4 p-3 bg-red-900/20 border border-red-700/50 rounded text-red-300">
                 {error}
               </div>
-            )} */}
+            )}
 
             {loading ? (
               <div className="text-center text-[#ABABAB] py-8">Loading FAQs...</div>
@@ -150,9 +152,8 @@ useEffect(() => {
                           updated[index].isVisible = true;
                           setFaqsData(updated);
                         }}
-                        className={`px-3 py-[2px] text-[12px] font-medium uppercase tracking-[0.05em] rounded-sm transition-colors border border-[#444] ${
-                          faq.isVisible ? 'bg-[#ABABAB] text-black' : 'text-white/50'
-                        }`}
+                        className={`px-3 py-[2px] text-[12px] font-medium uppercase tracking-[0.05em] rounded-sm transition-colors border border-[#444] ${faq.isVisible ? 'bg-[#ABABAB] text-black' : 'text-white/50'
+                          }`}
                       >
                         Show
                       </button>
@@ -162,9 +163,8 @@ useEffect(() => {
                           updated[index].isVisible = false;
                           setFaqsData(updated);
                         }}
-                        className={`px-3 py-[2px] text-[12px] font-medium uppercase tracking-[0.05em] rounded-sm transition-colors border border-[#444] ${
-                          !faq.isVisible ? 'bg-[#ABABAB] text-black' : 'text-white/50'
-                        }`}
+                        className={`px-3 py-[2px] text-[12px] font-medium uppercase tracking-[0.05em] rounded-sm transition-colors border border-[#444] ${!faq.isVisible ? 'bg-[#ABABAB] text-black' : 'text-white/50'
+                          }`}
                       >
                         Hide
                       </button>
@@ -199,7 +199,7 @@ useEffect(() => {
                         <label className="col-span-2 text-[#ABABAB] text-sm mt-2">Disclaimer</label>
                         <textarea
                           className="col-span-10 scrollbar-hide border border-gray-700/50 rounded px-4 py-3 text-[#ABABAB] bg-transparent w-full focus:outline-none focus:ring focus:border-gray-500"
-                          value={faq.disclaimer}
+                          value={faq.disclaimer ?? ''}
                           rows={3}
                           onChange={(e) => handleChange(index, 'disclaimer', e.target.value)}
                           placeholder="Enter Disclaimer here"
@@ -211,7 +211,19 @@ useEffect(() => {
               ))
             )}
 
-            <div className="mt-6">
+            {/* 🔹 Save button */}
+            {/* <div className="mt-6">
+              <button
+                disabled={isSaving}
+                onClick={handleSaveAll}
+                className="w-full bg-green-600 text-white py-3 text-sm rounded hover:bg-green-700 transition-colors disabled:opacity-50"
+              >
+                {isSaving ? "Saving..." : "Save FAQs"}
+              </button>
+            </div> */}
+
+            {/* 🔹 Add new FAQ button */}
+            <div className="mt-3">
               <button
                 onClick={() =>
                   setFaqsData([

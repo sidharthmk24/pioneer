@@ -9,23 +9,23 @@ import RetailerHyperlinks from './RetailerHyperlinks';
 interface DashboardMainProps {
   saveTrigger: number;
   selectedModel: string; // ✅ NEW
-  modelName:string
-  
+  modelName: string
+
 }
 
-export default function DashboardMain({ saveTrigger, selectedModel,modelName }: DashboardMainProps) {
+export default function DashboardMain({ saveTrigger, selectedModel, modelName }: DashboardMainProps) {
   const [comparisonSaveFn, setComparisonSaveFn] = useState<() => void>(() => () => { });
   const [detailedSpecSaveFn, setDetailedSpecSaveFn] = useState<() => void>(() => () => { });
   const [faqSaveFn, setFaqSaveFn] = useState<() => void>(() => () => { });
-  const [retailerSaveFn, setRetailerSaveFn] = useState<() => void>(() => {});
-  
+  const [retailerSaveFn, setRetailerSaveFn] = useState<() => void>(() => { });
+
 
   const handleSaveAll = () => {
     console.log('Save All Triggered');
     comparisonSaveFn();
     detailedSpecSaveFn();
     faqSaveFn();
-      retailerSaveFn?.(); 
+    retailerSaveFn?.();
   };
 
   useEffect(() => {
@@ -41,19 +41,19 @@ export default function DashboardMain({ saveTrigger, selectedModel,modelName }: 
 
 
       <DetailedSpec
-       modelName={modelName}
+        modelName={modelName}
         selectedCollection={selectedModel}
         onSaveRegister={(fn) => setDetailedSpecSaveFn(() => fn)}
 
 
-      />    
-<Faq
-  collectionName={`faq_${selectedModel.replace(/-/g, '')}`}
-  onSaveRegister={(fn) => setFaqSaveFn(() => fn)}
-/>
+      />
+      <Faq
+        collectionName={`faq_${selectedModel.replace(/-/g, '')}`}
+        onSaveRegister={(fn) => setFaqSaveFn(() => fn)}
+      />
 
-      <RetailerHyperlinks  onSaveRegister={(fn) => setRetailerSaveFn(() => fn)}
-  model={selectedModel} />
+      <RetailerHyperlinks onSaveRegister={(fn) => setRetailerSaveFn(() => fn)}
+        model={selectedModel} />
     </div>
   );
 }

@@ -101,19 +101,7 @@ useEffect(() => {
 
           {/* Specs List */}
           <ul className="space-y-7">
-            {specs.map((spec, index) => (
-              <li
-                key={index}
-                className="flex px-12 flex-wrap md:flex-nowrap gap-x-40 gap-y-2 text-[#d0d0d0] text-sm"
-              >
-                <span className="w-full md:w-[340px] text-[#ABABAB] text-[14px] sm:text-[15px]">
-                  {spec.feature}
-                </span>
-                <span className=" md:w-[530px] text-[14px] sm:text-[15px] text-white">
-                  {spec.value}
-                </span>
-              </li>
-            ))}
+           
           </ul>
         </div>
       </motion.div>

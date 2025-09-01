@@ -83,43 +83,58 @@ export default function RetailerHyperlinks({ onSaveRegister, model }: RetailerHy
       }
     ]);
   };
-
-  const uploadImage = async (file: File, retailerId: number): Promise<string> => {
-    const storageRef = ref(storage, `retailer_logos/${retailerId}_${file.name}`);
-    await uploadBytes(storageRef, file, {
-      contentType: file.type,
-    });
-    return getDownloadURL(storageRef);
-  };
-
-  const saveRetailers = async () => {
+  const getLogoUrl = async (path: string): Promise<string> => {
     try {
-      const updatedRetailers = await Promise.all(
-        retailers.map(async (retailer) => {
-          let logoUrl = retailer.logo;
-          const file = retailerFiles[retailer.id];
-          if (file) {
-            logoUrl = await uploadImage(file, retailer.id);
-          }
-
-          return {
-            name: retailer.name,
-            logo: logoUrl,
-            productLink: retailer.productLink,
-            countryCode: retailer.countryCode,
-          };
-        })
-      );
-
-      await setDoc(doc(db, 'retailerHyperlinks', model), {
-        retailers: updatedRetailers,
-      });
-
-      console.log('Retailers saved successfully');
+      const url = await getDownloadURL(ref(storage, path));
+      return url;
     } catch (err) {
-      console.error('Error saving retailers:', err);
+      console.error("Failed to get download URL:", err);
+      return "";
     }
   };
+
+const uploadImage = async (file: File, retailerId: number): Promise<string> => {
+  // Path where the image will be stored
+  const path = `retailer_logos/${retailerId}_${file.name}`;
+
+  // Upload to Firebase Storage
+  const storageRef = ref(storage, path);
+  await uploadBytes(storageRef, file, { contentType: file.type });
+
+  // ✅ Get the download URL (public URL with token)
+  const url = await getDownloadURL(storageRef);
+  return url;
+};
+
+const saveRetailers = async () => {
+  try {
+    const updatedRetailers = await Promise.all(
+      retailers.map(async (retailer) => {
+        let logoUrl = retailer.logo;
+        const file = retailerFiles[retailer.id];
+        if (file) {
+          logoUrl = await uploadImage(file, retailer.id); // ✅ this is now a URL
+        }
+
+        return {
+          name: retailer.name,
+          logo: logoUrl,  // ✅ full download URL stored in Firestore
+          productLink: retailer.productLink,
+          countryCode: retailer.countryCode,
+        };
+      })
+    );
+
+    await setDoc(doc(db, "retailerHyperlinks", model), {
+      retailers: updatedRetailers,
+    });
+
+    console.log("Retailers saved successfully with URLs");
+  } catch (err) {
+    console.error("Error saving retailers:", err);
+  }
+};
+
 
   useEffect(() => {
     onSaveRegister(saveRetailers);
@@ -128,21 +143,23 @@ export default function RetailerHyperlinks({ onSaveRegister, model }: RetailerHy
   useEffect(() => {
     const docRef = doc(db, 'retailerHyperlinks', model);
 
-    const unsubscribe = onSnapshot(docRef, (snapshot) => {
-      if (snapshot.exists()) {
-        const data = snapshot.data();
-        const fetchedRetailers = data.retailers || [];
-        const retailersWithId = fetchedRetailers.map((retailer: any, index: number) => ({
-          id: index + 1,
-          ...retailer,
-        }));
-        setRetailers(retailersWithId);
-        setRetailerFiles({});
-      } else {
-        setRetailers([]);
-        setRetailerFiles({});
-      }
-    });
+   const unsubscribe = onSnapshot(docRef, (snapshot) => {
+  if (snapshot.exists()) {
+    const data = snapshot.data();
+    const fetchedRetailers = data.retailers || [];
+
+    const withIds = fetchedRetailers.map((retailer: any, index: number) => ({
+      id: index + 1,
+      ...retailer,
+    }));
+
+    setRetailers(withIds);
+    setRetailerFiles({});
+  } else {
+    setRetailers([]);
+    setRetailerFiles({});
+  }
+});
 
     return () => unsubscribe();
   }, [model]);
